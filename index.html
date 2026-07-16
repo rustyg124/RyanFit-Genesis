@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0a1016">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>RyanFit Genesis — Build 5</title>
+<title>RyanFit Genesis — Build 6</title>
 <style>
 :root{--bg:#0a1016;--card:#151c25;--card2:#202a36;--line:#303c4b;--text:#f7f9fc;--muted:#aab6c6;--accent:#72e1ab;--warn:#ffd166;--blue:#74b9ff}
 *{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}body{min-height:100vh}button,input,select{font:inherit}
@@ -29,13 +29,24 @@ label{display:block;color:var(--muted);font-size:.82rem;margin:10px 0 5px}input,
 </head>
 <body>
 <div class="app">
-<header><div><h1>RyanFit</h1><div class="sub">Genesis · Just follow me</div></div><span class="badge">Build 5</span></header>
+<header><div><h1>RyanFit</h1><div class="sub">Genesis · Just follow me</div></div><span class="badge">Build 6</span></header>
 <main>
 <section id="coachPage" class="page active">
-<article class="card hero"><div class="eyebrow" id="dateLabel"></div><h2 id="greeting"></h2><p>Your coach is ready. Press once, put your headphones in, and follow the next instruction.</p><div class="stats"><div class="stat"><strong id="workoutCount">0</strong><span>workouts</span></div><div class="stat"><strong id="setCount">0</strong><span>sets logged</span></div><div class="stat"><strong id="trainingDays">0</strong><span>training days</span></div></div></article>
+<article class="card hero"><div class="eyebrow" id="dateLabel"></div><h2 id="greeting"></h2><p>Your coach is ready to guide, encourage and keep you engaged from start to finish.</p><div class="stats"><div class="stat"><strong id="workoutCount">0</strong><span>workouts</span></div><div class="stat"><strong id="setCount">0</strong><span>sets logged</span></div><div class="stat"><strong id="trainingDays">0</strong><span>training days</span></div></div></article>
 <article class="card"><div class="between"><div><div class="eyebrow">Voice coach</div><div class="voiceStatus"><i id="voiceDot" class="dot"></i><span id="voiceText">Tap test to activate</span></div></div><button id="testVoice" class="secondary" style="width:auto">Test</button></div><label>Voice style</label><select id="voiceStyle"><option value="calm">Calm</option><option value="direct">Direct</option><option value="gruff">Gruff</option></select>
 <label>Guidance</label><select id="guidance"><option value="normal">Useful prompts</option><option value="high">High engagement</option><option value="minimal">Minimal</option></select>
 <label>Coach flow</label><select id="coachFlow"><option value="guided">Fully guided</option><option value="manual">Manual confirmations</option></select>
+<label>Conversation mix</label><select id="conversationMix">
+<option value="balanced">Balanced</option>
+<option value="motivation">More motivation</option>
+<option value="humour">More humour</option>
+<option value="stories">More stories and facts</option>
+</select>
+<label>Prompt frequency</label><select id="promptFrequency">
+<option value="high">Frequent</option>
+<option value="veryHigh">Very frequent</option>
+<option value="normal">Moderate</option>
+</select>
 <button id="announceNext" class="quiet" style="margin-top:10px">Announce today’s plan</button></article>
 <article id="resumeCard" class="card resume" style="display:none"><div class="eyebrow">Interrupted workout found</div><h3>Resume where you stopped</h3><p id="resumeText" class="muted"></p><div class="grid2"><button id="resumeBtn" class="primary">Resume</button><button id="discardBtn" class="quiet">Discard</button></div></article>
 <article class="card"><div class="eyebrow">Readiness</div><label>Shoulder pain now <b id="painNowOut">2</b>/10</label><input id="painNow" type="range" min="0" max="10" value="2"><label>Energy</label><select id="energy"><option>Low</option><option selected>Okay</option><option>Good</option></select><button id="saveReadiness" class="secondary" style="margin-top:10px">Save readiness</button><div id="readinessAdvice" class="coachline" style="margin-top:10px">Keep movements smooth and symptoms mild.</div></article>
@@ -50,6 +61,7 @@ label{display:block;color:var(--muted);font-size:.82rem;margin:10px 0 5px}input,
 <div id="coachCue" class="coachline spoken"></div><div id="lastResult" class="last"></div>
 <div id="coachStatus" class="last">Set up the machine, then tap I’m Ready.</div>
 <div id="liveCoach" class="coachline" style="margin-top:10px">Coach standing by.</div>
+<div class="last"><b>Conversation mode:</b> <span id="conversationStatus">Frequent, balanced engagement</span></div>
 <div id="readyBlock" style="margin-top:12px"><button id="imReady" class="primary">I’m Ready</button></div>
 <div id="loggingBlock" style="display:none">
 <div class="grid2"><div><label>Weight (kg)</label><input id="weight" type="number" step="0.5" inputmode="decimal"></div><div><label>Reps / seconds</label><input id="reps" type="number" inputmode="numeric"></div></div>
@@ -70,7 +82,7 @@ label{display:block;color:var(--muted);font-size:.82rem;margin:10px 0 5px}input,
 </div>
 <div id="countdown">3</div>
 <script>
-const KEY='ryanfit_genesis_build5';
+const KEY='ryanfit_genesis_build6';
 const WORKOUT=[
 {id:'treadmill',name:'Treadmill warm-up',target:'7 minutes',cue:'Walk to the treadmills on the right after entry. Set a comfortable pace.',sets:1,rest:30},
 {id:'iso-er',name:'External-rotation isometric',target:'20 seconds',cue:'Go to the cable area directly ahead. Keep your elbow tucked and press outward gently without moving.',sets:2,rest:45},
@@ -79,8 +91,8 @@ const WORKOUT=[
 {id:'leg-press',name:'Partial-depth leg press',target:'12 to 15 repetitions',cue:'Move to the pin loaded leg press ahead. Stop before pelvic or urethral stretch.',sets:3,rest:90},
 {id:'leg-curl',name:'Seated leg curl',target:'12 to 15 repetitions',cue:'Stay in the pin loaded area. Keep the hips supported and avoid groin pulling.',sets:3,rest:75}
 ];
-let state=load(),setTick=null,restTick=null,coachPaused=false;
-function load(){try{return JSON.parse(localStorage.getItem(KEY))||{active:null,logs:[],completed:[],readiness:[],settings:{voiceStyle:'calm',guidance:'normal',coachFlow:'guided'}}}catch{return {active:null,logs:[],completed:[],readiness:[],settings:{voiceStyle:'calm',guidance:'normal',coachFlow:'guided'}}}}
+let state=load(),setTick=null,restTick=null,conversationTick=null,coachPaused=false,lastConversationAt=0,lastLines=[];
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||{active:null,logs:[],completed:[],readiness:[],settings:{voiceStyle:'calm',guidance:'normal',coachFlow:'guided',conversationMix:'balanced',promptFrequency:'high'}}}catch{return {active:null,logs:[],completed:[],readiness:[],settings:{voiceStyle:'calm',guidance:'normal',coachFlow:'guided',conversationMix:'balanced',promptFrequency:'high'}}}}
 function save(){localStorage.setItem(KEY,JSON.stringify(state))}
 function $(id){return document.getElementById(id)}
 function format(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
@@ -89,6 +101,109 @@ function coachText(e){return `${e.cue} We are doing ${e.sets} sets. Target ${e.t
 
 function coachFlow(){return state.settings?.coachFlow||'guided'}
 function sayLive(text,interrupt=true){$('liveCoach').textContent=text;if(!coachPaused)speak(text,interrupt)}
+
+const TALK={
+motivation:[
+'You are already doing the hardest part. You are here.',
+'One clean repetition is progress.',
+'Keep stacking good decisions.',
+'You do not need perfect. You need completed.',
+'Consistency is doing the ordinary thing again.',
+'This session is another vote for the person you want to become.',
+'Stay patient. Strong work is built one set at a time.',
+'You have handled harder days than this.',
+'Finish this session and the rest of the day feels easier.',
+'You are not waiting for motivation. You are creating it.'
+],
+humour:[
+'Good news. The weights have agreed to remain exactly where you left them.',
+'Your muscles have submitted a complaint. It has been respectfully ignored.',
+'The machine is not judging you. It cannot even remember its own PIN.',
+'This rest period is sponsored by breathing heavily and pretending that was easy.',
+'Excellent form. Very inconvenient for your excuses.',
+'The dumbbells remain suspiciously quiet. Keep an eye on them.',
+'Today’s technical term is controlled suffering.',
+'If the machine is occupied, we call that unexpected cardio.',
+'The floor has once again failed to lift any of the weights.',
+'Your future self says thanks. Your current legs may disagree.'
+],
+facts:[
+'Training fact. Slower controlled repetitions can make light loads feel much more challenging.',
+'Technique fact. A stable setup usually makes the working muscles do more of the job.',
+'Recovery fact. Progress comes from training plus recovery, not training alone.',
+'Consistency fact. A modest session repeated regularly usually beats an occasional heroic one.',
+'Focus fact. Counting your exhale can help keep a set controlled.',
+'Progress fact. Adding one good repetition is still progressive overload.',
+'Warm-up fact. The goal is readiness, not fatigue.',
+'Rest fact. Longer rest can improve the quality of your next set.',
+'Form fact. Smooth lowering often improves control and confidence.',
+'Training fact. Leaving a little in reserve can support better weekly consistency.'
+],
+stories:[
+'Short story. A coach once asked an athlete to stop chasing perfect workouts and collect ordinary ones instead. Months later, the ordinary workouts had created extraordinary progress.',
+'Short story. One lifter tracked only whether he showed up. After one hundred visits, strength had improved almost by accident. Attendance was the habit that carried everything else.',
+'Short story. An endurance athlete used one rule on difficult days. Begin for five minutes, then decide. Most days, beginning was enough to continue.',
+'Short story. A rehabilitation coach described recovery as laying bricks. No single brick looks impressive, but eventually there is a wall.',
+'Short story. A veteran trainer said his best clients were not the most motivated. They were the ones who kept appointments with themselves.'
+],
+questions:[
+'Quick question for yourself. What would make today feel successful besides the numbers?',
+'Quick question. What is one thing you are looking forward to this week?',
+'Quick question. Which exercise has improved most since you began?',
+'Quick question. What would your future self thank you for doing today?',
+'Quick question. What is one small win from the last twenty four hours?'
+]
+};
+function mix(){return state.settings?.conversationMix||'balanced'}
+function frequency(){return state.settings?.promptFrequency||'high'}
+function conversationGap(){
+  return frequency()==='veryHigh'?18:frequency()==='high'?28:45;
+}
+function pickCategory(context){
+  const m=mix();
+  if(context==='set')return Math.random()<.75?'motivation':'facts';
+  if(context==='walk')return Math.random()<.45?'questions':Math.random()<.5?'motivation':'humour';
+  if(context==='rest'){
+    if(m==='motivation')return Math.random()<.65?'motivation':'facts';
+    if(m==='humour')return Math.random()<.55?'humour':'motivation';
+    if(m==='stories')return Math.random()<.55?'stories':'facts';
+    const r=Math.random();
+    return r<.3?'motivation':r<.5?'humour':r<.75?'facts':r<.9?'stories':'questions';
+  }
+  return 'motivation';
+}
+function freshLine(category){
+  const pool=TALK[category]||TALK.motivation;
+  let options=pool.filter(x=>!lastLines.includes(x));
+  if(!options.length){lastLines=[];options=pool}
+  const line=options[Math.floor(Math.random()*options.length)];
+  lastLines.push(line);if(lastLines.length>8)lastLines.shift();
+  return line;
+}
+function conversationContext(){
+  if(!state.active)return 'walk';
+  return state.active.phase==='set'?'set':state.active.phase==='rest'?'rest':'walk';
+}
+function conversationLine(){
+  const context=conversationContext();
+  const category=pickCategory(context);
+  return freshLine(category);
+}
+function startConversationEngine(){
+  clearInterval(conversationTick);
+  lastConversationAt=Date.now();
+  conversationTick=setInterval(()=>{
+    if(coachPaused||!state.active)return;
+    const elapsed=(Date.now()-lastConversationAt)/1000;
+    if(elapsed<conversationGap())return;
+    const context=conversationContext();
+    if(context==='set'&&frequency()==='normal')return;
+    const line=conversationLine();
+    sayLive(line,false);
+    lastConversationAt=Date.now();
+  },3000);
+}
+function stopConversationEngine(){clearInterval(conversationTick);conversationTick=null}
 function guidanceLevel(){return state.settings?.guidance||'normal'}
 function announcePlan(){
   const names=WORKOUT.map(x=>x.name).join(', ');
@@ -107,13 +222,16 @@ function nextInstruction(){
 }
 function showPage(id){document.querySelectorAll('.page,nav button').forEach(x=>x.classList.remove('active'));$(id).classList.add('active');document.querySelector(`nav button[data-page="${id}"]`)?.classList.add('active');window.scrollTo(0,0)}
 function previousFor(id){return [...state.logs].reverse().find(x=>x.exerciseId===id)}
-function newSession(){state.active={queue:WORKOUT.map(x=>({...x})),exerciseIndex:0,setNumber:1,phase:'ready',setSeconds:0,restSeconds:WORKOUT[0].rest,weight:'',reps:'',pain:1};save();renderWorkout();showPage('workoutPage');sayLive(`Starting Just Follow Me. First exercise, ${WORKOUT[0].name}. ${coachText(WORKOUT[0])}`)}
+function newSession(){state.active={queue:WORKOUT.map(x=>({...x})),exerciseIndex:0,setNumber:1,phase:'ready',setSeconds:0,restSeconds:WORKOUT[0].rest,weight:'',reps:'',pain:1};save();renderWorkout();showPage('workoutPage');sayLive(`Starting Just Follow Me. First exercise, ${WORKOUT[0].name}. ${coachText(WORKOUT[0])}`);startConversationEngine()}
 function renderWorkout(){if(!state.active)return;const a=state.active,e=a.queue[a.exerciseIndex];$('position').textContent=`Exercise ${a.exerciseIndex+1}/${a.queue.length} · Set ${a.setNumber}/${e.sets}`;$('exerciseName').textContent=e.name;$('exerciseTarget').textContent=e.target;$('coachCue').innerHTML=`<span>🎧</span><div>${e.cue}</div>`;$('weight').value=a.weight||'';$('reps').value=a.reps||'';$('setTimer').textContent=format(a.setSeconds||0);$('restTimer').textContent=format(a.restSeconds||e.rest);$('workoutProgress').style.width=((a.exerciseIndex+(a.setNumber-1)/e.sets)/a.queue.length*100)+'%';document.querySelectorAll('[data-pain]').forEach(b=>b.classList.toggle('selected',+b.dataset.pain===a.pain));$('readyBlock').style.display=a.phase==='ready'?'block':'none';$('loggingBlock').style.display=a.phase==='set'?'block':'none';$('restBlock').style.display=a.phase==='rest'?'block':'none';const prev=previousFor(e.id);$('lastResult').textContent=prev?`Last time: ${prev.weight||'—'} kg × ${prev.reps||'—'} · shoulder ${prev.pain}/5`:'No previous result. Start conservatively.';const next=a.queue[a.exerciseIndex+1];$('nextUp').textContent=next?`Next: ${next.name}. ${next.cue}`:`Next: another set of ${e.name}.`;$('coachStatus').textContent=nextInstruction();
 $('liveCoach').textContent=a.phase==='ready'?`Set up for ${e.name}. Tap I’m Ready when positioned.`:a.phase==='set'?`Set in progress. Stay controlled.`:`Resting. Next instruction is coming.`;
+$('conversationStatus').textContent=`${frequency()==='veryHigh'?'Very frequent':frequency()==='high'?'Frequent':'Moderate'}, ${mix()} engagement`;
 save();renderResume();renderProgress()}
-async function imReady(){if(!state.active||state.active.phase!=='ready')return;const e=state.active.queue[state.active.exerciseIndex];sayLive(`Set ${state.active.setNumber}. Target ${e.target}. ${state.active.weight?`Use ${state.active.weight} kilograms.`:''} Get into position.`);const overlay=$('countdown');overlay.classList.add('show');for(const n of [3,2,1]){overlay.textContent=n;speak(String(n));await new Promise(r=>setTimeout(r,700))}overlay.textContent='GO';speak('Go');await new Promise(r=>setTimeout(r,350));overlay.classList.remove('show');state.active.phase='set';state.active.setSeconds=0;save();renderWorkout();setTick=setInterval(()=>{if(!state.active)return;state.active.setSeconds++;$('setTimer').textContent=format(state.active.setSeconds);if(guidanceLevel()==='high'&&state.active.setSeconds===8)sayLive('Good start. Stay smooth.',false);
+async function imReady(){if(!state.active||state.active.phase!=='ready')return;const e=state.active.queue[state.active.exerciseIndex];sayLive(`Set ${state.active.setNumber}. Target ${e.target}. ${state.active.weight?`Use ${state.active.weight} kilograms.`:''} Get into position.`);const overlay=$('countdown');overlay.classList.add('show');for(const n of [3,2,1]){overlay.textContent=n;speak(String(n));await new Promise(r=>setTimeout(r,700))}overlay.textContent='GO';speak('Go');await new Promise(r=>setTimeout(r,350));overlay.classList.remove('show');state.active.phase='set';state.active.setSeconds=0;save();renderWorkout();setTick=setInterval(()=>{if(!state.active)return;state.active.setSeconds++;$('setTimer').textContent=format(state.active.setSeconds);if(state.active.setSeconds===5&&frequency()==='veryHigh')sayLive(freshLine('motivation'),false);
+if(guidanceLevel()==='high'&&state.active.setSeconds===8)sayLive('Good start. Stay smooth.',false);
 if(guidanceLevel()!=='minimal'&&state.active.setSeconds===15)sayLive('Keep breathing. Control the lowering.',false);
 if(guidanceLevel()==='high'&&state.active.setSeconds===25)sayLive('Strong work. Finish clean.',false);
+if(frequency()==='veryHigh'&&state.active.setSeconds===35)sayLive('Stay with it. One clean finish.',false);
 const current=state.active.queue[state.active.exerciseIndex];
 if(current.id==='treadmill'&&state.active.setSeconds===60)sayLive('One minute complete. Settle into a comfortable pace.',false);
 if(current.id==='treadmill'&&state.active.setSeconds===360)sayLive('One minute remaining on the treadmill.',false);
@@ -127,14 +245,14 @@ let feedback='Set complete. Good work. Rest starts now.';
 if(a.pain>=5)feedback='Stop this shoulder exercise. Move to a pain free alternative.';
 else if(a.pain>=3)feedback='Set complete. Keep the same load or reduce it.';
 else if(prev&&(+a.reps||0)>(+prev.reps||0))feedback='Set complete. You beat your previous reps. Nice work. Rest starts now.';
-sayLive(feedback);if(a.setNumber<e.sets){a.setNumber++;a.phase='rest';a.restSeconds=e.rest}else if(a.exerciseIndex<a.queue.length-1){a.exerciseIndex++;a.setNumber=1;a.phase='rest';a.restSeconds=e.rest;a.pain=1;const next=a.queue[a.exerciseIndex],prev=previousFor(next.id);a.weight=prev?.weight||'';a.reps=prev?.reps||''}else{state.completed.push({date:new Date().toISOString()});state.active=null;save();showPage('coachPage');renderAll();speak('Workout complete. You followed the plan and protected the shoulder. Good work, Ryan.');return}save();renderWorkout();startRest()}
+sayLive(feedback);setTimeout(()=>{if(state.active&&state.active.phase==='rest'&&!coachPaused)sayLive(conversationLine(),false)},7000);if(a.setNumber<e.sets){a.setNumber++;a.phase='rest';a.restSeconds=e.rest}else if(a.exerciseIndex<a.queue.length-1){a.exerciseIndex++;a.setNumber=1;a.phase='rest';a.restSeconds=e.rest;a.pain=1;const next=a.queue[a.exerciseIndex],prev=previousFor(next.id);a.weight=prev?.weight||'';a.reps=prev?.reps||''}else{state.completed.push({date:new Date().toISOString()});stopConversationEngine();state.active=null;save();showPage('coachPage');renderAll();speak('Workout complete. You followed the plan and protected the shoulder. Good work, Ryan.');return}save();renderWorkout();startRest()}
 function startRest(){clearInterval(restTick);restTick=setInterval(()=>{if(!state.active||state.active.phase!=='rest'){clearInterval(restTick);return}state.active.restSeconds--;$('restTimer').textContent=format(state.active.restSeconds);if(state.active.restSeconds===45&&guidanceLevel()==='high')sayLive('Forty five seconds. Breathe and reset.');
 if(state.active.restSeconds===30&&guidanceLevel()!=='minimal'){
   const e=state.active.queue[state.active.exerciseIndex];
   sayLive(`Thirty seconds. Next is ${e.name}. Start moving toward the station if it is nearby.`);
 }
 if(state.active.restSeconds===10)sayLive('Ten seconds. Get into position.');if(state.active.restSeconds<=0){clearInterval(restTick);state.active.phase='ready';state.active.restSeconds=state.active.queue[state.active.exerciseIndex].rest;save();renderWorkout();const e=state.active.queue[state.active.exerciseIndex];sayLive(`Rest complete. ${e.name}. ${e.cue} Press I'm Ready when set up.`)}save()},1000)}
-function resume(){if(!state.active)return;showPage('workoutPage');renderWorkout();if(state.active.phase==='set')setTick=setInterval(()=>{if(!state.active)return;state.active.setSeconds++;$('setTimer').textContent=format(state.active.setSeconds);save()},1000);if(state.active.phase==='rest')startRest();const e=state.active.queue[state.active.exerciseIndex];sayLive(`Workout resumed. ${e.name}. Set ${state.active.setNumber}.`)}
+function resume(){if(!state.active)return;showPage('workoutPage');renderWorkout();if(state.active.phase==='set')setTick=setInterval(()=>{if(!state.active)return;state.active.setSeconds++;$('setTimer').textContent=format(state.active.setSeconds);save()},1000);if(state.active.phase==='rest')startRest();const e=state.active.queue[state.active.exerciseIndex];sayLive(`Workout resumed. ${e.name}. Set ${state.active.setNumber}.`);startConversationEngine()}
 function renderResume(){$('resumeCard').style.display=state.active?'block':'none';if(state.active){const e=state.active.queue[state.active.exerciseIndex];$('resumeText').textContent=`${e.name} · set ${state.active.setNumber} · ${state.active.phase}`}}
 function renderProgress(){$('progressText').textContent=state.logs.length?`${state.logs.length} sets completed and saved on this device.`:'No sets completed yet.';$('recentLogs').innerHTML=state.logs.slice(-8).reverse().map(x=>`<div class="planitem"><strong>${x.exercise}</strong><span>${x.weight||'—'} kg × ${x.reps||'—'} · shoulder ${x.pain}/5</span></div>`).join('');$('workoutCount').textContent=state.completed.length;$('setCount').textContent=state.logs.length;$('trainingDays').textContent=new Set(state.logs.map(x=>x.date.slice(0,10))).size}
 function renderAll(){renderResume();renderProgress()}
@@ -145,20 +263,22 @@ $('testVoice').onclick=()=>sayLive('Morning Ryan. Your voice coach is active and
 $('voiceStyle').onchange=e=>{state.settings=state.settings||{};state.settings.voiceStyle=e.target.value;save();speak(`Voice style set to ${e.target.value}.`)};
 $('guidance').onchange=e=>{state.settings=state.settings||{};state.settings.guidance=e.target.value;save();sayLive(`Guidance set to ${e.target.options[e.target.selectedIndex].text}.`)};
 $('coachFlow').onchange=e=>{state.settings=state.settings||{};state.settings.coachFlow=e.target.value;save();sayLive(`Coach flow set to ${e.target.options[e.target.selectedIndex].text}.`)};
+$('conversationMix').onchange=e=>{state.settings=state.settings||{};state.settings.conversationMix=e.target.value;save();sayLive(`Conversation mix set to ${e.target.options[e.target.selectedIndex].text}.`)};
+$('promptFrequency').onchange=e=>{state.settings=state.settings||{};state.settings.promptFrequency=e.target.value;save();sayLive(`Prompt frequency set to ${e.target.options[e.target.selectedIndex].text}.`);if(state.active)startConversationEngine()};
 $('announceNext').onclick=announcePlan;
-$('startWorkout').onclick=newSession;$('resumeBtn').onclick=resume;$('discardBtn').onclick=()=>{if(confirm('Discard saved workout?')){state.active=null;save();renderAll()}};
+$('startWorkout').onclick=newSession;$('resumeBtn').onclick=resume;$('discardBtn').onclick=()=>{if(confirm('Discard saved workout?')){stopConversationEngine();state.active=null;save();renderAll()}};
 $('imReady').onclick=imReady;$('finishSet').onclick=finishSet;$('skipRest').onclick=()=>{if(state.active){clearInterval(restTick);state.active.phase='ready';save();renderWorkout();speak('Rest skipped. Set up for the next set.')}};
-$('leaveWorkout').onclick=()=>{save();showPage('coachPage');renderAll()};$('occupied').onclick=moveOccupied;$('pauseCoach').onclick=()=>{
+$('leaveWorkout').onclick=()=>{stopConversationEngine();save();showPage('coachPage');renderAll()};$('occupied').onclick=moveOccupied;$('pauseCoach').onclick=()=>{
   coachPaused=!coachPaused;
   $('pauseCoach').textContent=coachPaused?'Resume coach':'Pause coach';
-  if(coachPaused){speechSynthesis.cancel();$('liveCoach').textContent='Coach paused. Timers continue.'}
-  else sayLive('Coach resumed.');
+  if(coachPaused){speechSynthesis.cancel();stopConversationEngine();$('liveCoach').textContent='Coach paused. Timers continue.'}
+  else {sayLive('Coach resumed.');startConversationEngine();}
 };
 $('repeatCoach').onclick=()=>{if(state.active)sayLive(nextInstruction())};
 $('weight').oninput=e=>{if(state.active){state.active.weight=e.target.value;save()}};$('reps').oninput=e=>{if(state.active){state.active.reps=e.target.value;save()}};$('painNow').oninput=e=>$('painNowOut').textContent=e.target.value;$('saveReadiness').onclick=saveReadiness;
 document.querySelectorAll('[data-pain]').forEach(b=>b.onclick=()=>{if(state.active){state.active.pain=+b.dataset.pain;renderWorkout()}});
 window.addEventListener('pagehide',save);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')save()});
-const now=new Date();$('dateLabel').textContent=now.toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long'});$('greeting').textContent=`Good ${now.getHours()<12?'morning':now.getHours()<18?'afternoon':'evening'}, Ryan.`;$('voiceStyle').value=state.settings?.voiceStyle||'calm';$('guidance').value=state.settings?.guidance||'normal';$('coachFlow').value=state.settings?.coachFlow||'guided';renderAll();
+const now=new Date();$('dateLabel').textContent=now.toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long'});$('greeting').textContent=`Good ${now.getHours()<12?'morning':now.getHours()<18?'afternoon':'evening'}, Ryan.`;$('voiceStyle').value=state.settings?.voiceStyle||'calm';$('guidance').value=state.settings?.guidance||'normal';$('coachFlow').value=state.settings?.coachFlow||'guided';$('conversationMix').value=state.settings?.conversationMix||'balanced';$('promptFrequency').value=state.settings?.promptFrequency||'high';renderAll();
 </script>
 </body>
 </html>
