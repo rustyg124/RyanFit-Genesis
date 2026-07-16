@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0a1016">
+  <title>RyanFit Genesis</title>
+  <style>
+    :root{
+      --bg:#0a1016;
+      --card:#151c25;
+      --card2:#202a36;
+      --line:#303c4b;
+      --text:#f7f9fc;
+      --muted:#aab6c6;
+      --accent:#72e1ab;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    }
+    .app{
+      max-width:760px;
+      margin:auto;
+      padding:18px 14px 96px;
+    }
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:16px;
+    }
+    h1{margin:0;font-size:1.5rem}
+    .sub{color:var(--muted);font-size:.85rem}
+    .badge{
+      background:var(--card2);
+      color:var(--muted);
+      padding:7px 10px;
+      border-radius:999px;
+      font-size:.75rem;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:16px;
+      margin:12px 0;
+      box-shadow:0 14px 34px rgba(0,0,0,.22);
+    }
+    .hero{
+      background:linear-gradient(145deg,#1b2a32,#14261f);
+    }
+    .eyebrow{
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-size:.74rem;
+      color:var(--muted);
+    }
+    h2,h3{margin:.25rem 0 .6rem}
+    p{line-height:1.45}
+    .muted{color:var(--muted)}
+    button{
+      width:100%;
+      border:0;
+      border-radius:14px;
+      padding:14px 16px;
+      background:var(--accent);
+      color:#082016;
+      font-weight:800;
+      font-size:1rem;
+    }
+    .quote{
+      border-left:4px solid var(--accent);
+      font-style:italic;
+      background:#14231c;
+    }
+    nav{
+      position:fixed;
+      bottom:0;
+      left:50%;
+      transform:translateX(-50%);
+      width:min(760px,100%);
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:6px;
+      padding:8px 8px calc(8px + env(safe-area-inset-bottom));
+      background:#11171e;
+      border-top:1px solid var(--line);
+    }
+    nav button{
+      background:transparent;
+      color:var(--muted);
+      padding:10px 4px;
+      font-size:.78rem;
+    }
+    nav button.active{
+      background:var(--card2);
+      color:var(--text);
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div>
+        <h1>RyanFit</h1>
+        <div class="sub">Genesis · Just follow me</div>
+      </div>
+      <span class="badge">Step 1</span>
+    </header>
+
+    <section class="card hero">
+      <div class="eyebrow">Coach</div>
+      <h2>Good morning, Ryan.</h2>
+      <p>Your new RyanFit foundation is live.</p>
+    </section>
+
+    <section class="card">
+      <div class="eyebrow">Today</div>
+      <h3>Shoulder Rebuild</h3>
+      <p class="muted">
+        The first goal is a reliable guided workout that never loses your place.
+      </p>
+      <button>Start “Just Follow Me”</button>
+    </section>
+
+    <section class="card quote">
+      “One controlled session is enough to move forward.”
+    </section>
+  </div>
+
+  <nav>
+    <button class="active">Coach</button>
+    <button>Workout</button>
+    <button>Gym</button>
+    <button>Progress</button>
+  </nav>
+</body>
+</html>
