@@ -4,139 +4,375 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#0a1016">
-  <title>RyanFit Genesis</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="RyanFit">
+  <title>RyanFit Genesis — Build 2</title>
   <style>
     :root{
-      --bg:#0a1016;
-      --card:#151c25;
-      --card2:#202a36;
-      --line:#303c4b;
-      --text:#f7f9fc;
-      --muted:#aab6c6;
-      --accent:#72e1ab;
+      --bg:#0a1016;--card:#151c25;--card2:#202a36;--line:#303c4b;
+      --text:#f7f9fc;--muted:#aab6c6;--accent:#72e1ab;
+      --warn:#ffd166;--danger:#ff8585;
     }
     *{box-sizing:border-box}
-    body{
-      margin:0;
-      background:var(--bg);
-      color:var(--text);
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-    }
-    .app{
-      max-width:760px;
-      margin:auto;
-      padding:18px 14px 96px;
-    }
-    header{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:16px;
-    }
-    h1{margin:0;font-size:1.5rem}
-    .sub{color:var(--muted);font-size:.85rem}
-    .badge{
-      background:var(--card2);
-      color:var(--muted);
-      padding:7px 10px;
-      border-radius:999px;
-      font-size:.75rem;
-    }
-    .card{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:20px;
-      padding:16px;
-      margin:12px 0;
-      box-shadow:0 14px 34px rgba(0,0,0,.22);
-    }
-    .hero{
-      background:linear-gradient(145deg,#1b2a32,#14261f);
-    }
-    .eyebrow{
-      text-transform:uppercase;
-      letter-spacing:.08em;
-      font-size:.74rem;
-      color:var(--muted);
-    }
-    h2,h3{margin:.25rem 0 .6rem}
-    p{line-height:1.45}
-    .muted{color:var(--muted)}
-    button{
-      width:100%;
-      border:0;
-      border-radius:14px;
-      padding:14px 16px;
-      background:var(--accent);
-      color:#082016;
-      font-weight:800;
-      font-size:1rem;
-    }
-    .quote{
-      border-left:4px solid var(--accent);
-      font-style:italic;
-      background:#14231c;
-    }
-    nav{
-      position:fixed;
-      bottom:0;
-      left:50%;
-      transform:translateX(-50%);
-      width:min(760px,100%);
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:6px;
-      padding:8px 8px calc(8px + env(safe-area-inset-bottom));
-      background:#11171e;
-      border-top:1px solid var(--line);
-    }
-    nav button{
-      background:transparent;
-      color:var(--muted);
-      padding:10px 4px;
-      font-size:.78rem;
-    }
-    nav button.active{
-      background:var(--card2);
-      color:var(--text);
-    }
+    html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+    body{min-height:100vh}
+    button,input,select{font:inherit}
+    .app{max-width:760px;margin:auto;padding:env(safe-area-inset-top) 14px calc(94px + env(safe-area-inset-bottom))}
+    header{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:16px 2px 10px;background:linear-gradient(var(--bg) 82%,transparent)}
+    h1{margin:0;font-size:1.55rem}.sub{color:var(--muted);font-size:.85rem}
+    .badge{background:var(--card2);color:var(--muted);padding:7px 10px;border-radius:999px;font-size:.75rem}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin:12px 0;box-shadow:0 14px 34px rgba(0,0,0,.22)}
+    .hero{background:linear-gradient(145deg,#1b2a32,#14261f)}
+    .resume{background:linear-gradient(145deg,#193126,#15241d);border-color:#3b7358}
+    .quote{border-left:4px solid var(--accent);font-style:italic;background:#14231c}
+    .eyebrow{text-transform:uppercase;letter-spacing:.08em;font-size:.74rem;color:var(--muted)}
+    h2,h3{margin:.25rem 0 .6rem}p{line-height:1.45}.muted{color:var(--muted)}
+    button{border:0;border-radius:14px;padding:14px 16px;font-weight:800;font-size:1rem;cursor:pointer}
+    .primary{width:100%;background:var(--accent);color:#082016}
+    .secondary{width:100%;background:var(--card2);color:var(--text);border:1px solid var(--line)}
+    .quiet{width:100%;background:transparent;color:var(--muted);border:1px solid var(--line)}
+    .warning{width:100%;background:var(--warn);color:#352800}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .between{display:flex;justify-content:space-between;align-items:center;gap:8px}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+    .stat{background:rgba(255,255,255,.04);padding:11px;border-radius:14px}
+    .stat strong{display:block;font-size:1.35rem}.stat span{font-size:.73rem;color:var(--muted)}
+    label{display:block;color:var(--muted);font-size:.82rem;margin:10px 0 5px}
+    input,select{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:#0f151c;color:var(--text)}
+    .page{display:none}.page.active{display:block}
+    nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(760px,100%);display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:#11171e;border-top:1px solid var(--line);z-index:30}
+    nav button{background:transparent;color:var(--muted);padding:10px 4px;font-size:.78rem}
+    nav button.active{background:var(--card2);color:var(--text)}
+    .timer{text-align:center;font-size:3rem;font-variant-numeric:tabular-nums;font-weight:900;margin:14px}
+    .timer.set{color:var(--accent)}
+    .coachline{padding:12px;background:#13261e;border:1px solid #2b6249;border-radius:13px;color:#ddffeb}
+    .painrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    .painrow button{background:var(--card2);color:var(--text);border:1px solid var(--line)}
+    .painrow button.selected{outline:2px solid var(--accent)}
+    .planitem{padding:12px 0;border-bottom:1px solid var(--line)}
+    .planitem strong{display:block}.planitem span{color:var(--muted);font-size:.88rem}
+    .progressbar{height:10px;background:#26313d;border-radius:999px;overflow:hidden;margin:12px 0}
+    .progressbar i{display:block;height:100%;background:var(--accent);width:0}
+    .last{padding:11px;background:var(--card2);border-radius:12px;color:var(--muted);margin-top:10px}
+    #countdown{position:fixed;inset:0;background:rgba(5,8,12,.92);display:none;align-items:center;justify-content:center;z-index:100;font-size:8rem;font-weight:900;color:var(--accent)}
+    #countdown.show{display:flex}
+    @media(max-width:520px){.grid2,.stats{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
-  <div class="app">
-    <header>
-      <div>
-        <h1>RyanFit</h1>
-        <div class="sub">Genesis · Just follow me</div>
-      </div>
-      <span class="badge">Step 1</span>
-    </header>
+<div class="app">
+  <header>
+    <div><h1>RyanFit</h1><div class="sub">Genesis · Just follow me</div></div>
+    <span class="badge">Build 2</span>
+  </header>
 
-    <section class="card hero">
-      <div class="eyebrow">Coach</div>
-      <h2>Good morning, Ryan.</h2>
-      <p>Your new RyanFit foundation is live.</p>
+  <main>
+    <section id="coachPage" class="page active">
+      <article class="card hero">
+        <div class="eyebrow" id="dateLabel"></div>
+        <h2 id="greeting">Good morning, Ryan.</h2>
+        <p id="brief">Your coach is ready. One controlled session at a time.</p>
+        <div class="stats">
+          <div class="stat"><strong id="workoutCount">0</strong><span>workouts</span></div>
+          <div class="stat"><strong id="setCount">0</strong><span>sets logged</span></div>
+          <div class="stat"><strong id="trainingDays">0</strong><span>training days</span></div>
+        </div>
+      </article>
+
+      <article id="resumeCard" class="card resume" style="display:none">
+        <div class="eyebrow">Interrupted workout found</div>
+        <h3>Resume where you stopped</h3>
+        <p id="resumeText" class="muted"></p>
+        <div class="grid2">
+          <button id="resumeBtn" class="primary">Resume</button>
+          <button id="discardBtn" class="quiet">Discard</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="eyebrow">Readiness</div>
+        <label>Shoulder pain now <b id="painNowOut">2</b>/10</label>
+        <input id="painNow" type="range" min="0" max="10" value="2">
+        <label>Energy</label>
+        <select id="energy">
+          <option>Low</option><option selected>Okay</option><option>Good</option>
+        </select>
+        <button id="saveReadiness" class="secondary" style="margin-top:10px">Save readiness</button>
+        <div id="readinessAdvice" class="coachline" style="margin-top:10px">Keep movements smooth and symptoms mild.</div>
+      </article>
+
+      <article class="card">
+        <div class="eyebrow">Today</div>
+        <h3>Shoulder Rebuild + Legs</h3>
+        <p class="muted">A conservative guided workout that avoids pressing and overhead work while elevation remains painful.</p>
+        <button id="startWorkout" class="primary">Start “Just Follow Me”</button>
+      </article>
+
+      <article class="card quote">“Beginning creates momentum.”</article>
     </section>
 
-    <section class="card">
-      <div class="eyebrow">Today</div>
-      <h3>Shoulder Rebuild</h3>
-      <p class="muted">
-        The first goal is a reliable guided workout that never loses your place.
-      </p>
-      <button>Start “Just Follow Me”</button>
+    <section id="workoutPage" class="page">
+      <article class="card">
+        <div class="between">
+          <span id="position" class="badge">Exercise 1 · Set 1</span>
+          <button id="leaveWorkout" class="quiet" style="width:auto">Leave</button>
+        </div>
+
+        <div class="progressbar"><i id="workoutProgress"></i></div>
+
+        <div class="eyebrow">Current exercise</div>
+        <h2 id="exerciseName">Treadmill warm-up</h2>
+        <p id="exerciseTarget" class="muted">1 × 7 minutes</p>
+        <div id="coachCue" class="coachline">Walk to the treadmills on the right after entry.</div>
+        <div id="lastResult" class="last">No previous result. Start conservatively.</div>
+
+        <div class="grid2">
+          <div>
+            <label>Weight (kg)</label>
+            <input id="weight" type="number" step="0.5" inputmode="decimal" placeholder="Optional">
+          </div>
+          <div>
+            <label>Reps / seconds</label>
+            <input id="reps" type="number" inputmode="numeric" placeholder="Optional">
+          </div>
+        </div>
+
+        <label>Shoulder response</label>
+        <div class="painrow">
+          <button data-pain="1" class="selected">🙂 0–2</button>
+          <button data-pain="3">😐 3–4</button>
+          <button data-pain="5">😣 5+</button>
+        </div>
+
+        <div id="setTimer" class="timer set">00:00</div>
+        <button id="startSet" class="primary">Start set</button>
+        <button id="finishSet" class="secondary" style="display:none">Finish set</button>
+
+        <div id="restBlock" style="display:none">
+          <div class="eyebrow" style="text-align:center;margin-top:18px">Rest</div>
+          <div id="restTimer" class="timer">01:00</div>
+          <button id="skipRest" class="quiet">Skip rest</button>
+        </div>
+
+        <button id="occupied" class="warning" style="margin-top:10px">Machine occupied — move to end</button>
+      </article>
     </section>
 
-    <section class="card quote">
-      “One controlled session is enough to move forward.”
+    <section id="gymPage" class="page">
+      <article class="card">
+        <h2>Gym directions</h2>
+        <div class="planitem"><strong>Cardio</strong><span>Directly right after entry: treadmills and StairMill</span></div>
+        <div class="planitem"><strong>Pin-loaded machines</strong><span>Directly ahead from entry</span></div>
+        <div class="planitem"><strong>Functional room</strong><span>Middle-right room: rower and functional equipment</span></div>
+        <div class="planitem"><strong>Free weights</strong><span>Rear: benches, dumbbells, Smith and plate-loaded machines</span></div>
+      </article>
     </section>
-  </div>
+
+    <section id="progressPage" class="page">
+      <article class="card">
+        <h2>Progress</h2>
+        <p id="progressText" class="muted">No sets completed yet.</p>
+        <div id="recentLogs"></div>
+      </article>
+    </section>
+  </main>
 
   <nav>
-    <button class="active">Coach</button>
-    <button>Workout</button>
-    <button>Gym</button>
-    <button>Progress</button>
+    <button class="active" data-page="coachPage">Coach</button>
+    <button data-page="workoutPage">Workout</button>
+    <button data-page="gymPage">Gym</button>
+    <button data-page="progressPage">Progress</button>
   </nav>
+</div>
+
+<div id="countdown">3</div>
+
+<script>
+const KEY='ryanfit_genesis_build2';
+const WORKOUT=[
+  {id:'treadmill',name:'Treadmill warm-up',target:'1 × 7 minutes',cue:'Walk to the treadmills on the right after entry.',sets:1,rest:30},
+  {id:'iso-er',name:'External-rotation isometric',target:'2 × 20 seconds',cue:'Go to the cable area directly ahead. Keep your elbow tucked and press outward gently.',sets:2,rest:45},
+  {id:'cable-er',name:'Cable external rotation',target:'2 × 12–15 reps',cue:'Stay at the cable station. Use the lightest practical load and a short pain-free range.',sets:2,rest:60},
+  {id:'scap-row',name:'Low scapular retraction',target:'3 × 12–15 reps',cue:'Keep the arms low and gently draw the shoulder blades back and down.',sets:3,rest:60},
+  {id:'leg-press',name:'Partial-depth leg press',target:'3 × 12–15 reps',cue:'Move to the pin-loaded leg press ahead. Stop before pelvic or urethral stretch.',sets:3,rest:90},
+  {id:'leg-curl',name:'Seated leg curl',target:'3 × 12–15 reps',cue:'Stay in the pin-loaded area. Keep the hips supported and avoid groin pulling.',sets:3,rest:75}
+];
+
+let state=load();
+let setTick=null,restTick=null;
+
+function load(){
+  try{return JSON.parse(localStorage.getItem(KEY))||{active:null,logs:[],completed:[],readiness:[]}}
+  catch{return {active:null,logs:[],completed:[],readiness:[]}}
+}
+function save(){localStorage.setItem(KEY,JSON.stringify(state))}
+function $(id){return document.getElementById(id)}
+function format(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+function speak(text){
+  if(!('speechSynthesis' in window))return;
+  const u=new SpeechSynthesisUtterance(text);
+  u.rate=.92;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(u);
+}
+function showPage(id){
+  document.querySelectorAll('.page,nav button').forEach(x=>x.classList.remove('active'));
+  $(id).classList.add('active');
+  document.querySelector(`nav button[data-page="${id}"]`)?.classList.add('active');
+  window.scrollTo(0,0);
+}
+function previousFor(id){
+  return [...state.logs].reverse().find(x=>x.exerciseId===id);
+}
+function newSession(){
+  state.active={
+    queue:WORKOUT.map(x=>({...x})),
+    exerciseIndex:0,setNumber:1,phase:'ready',
+    setSeconds:0,restSeconds:WORKOUT[0].rest,
+    weight:'',reps:'',pain:1,savedAt:new Date().toISOString()
+  };
+  const prev=previousFor(WORKOUT[0].id);
+  if(prev){state.active.weight=prev.weight||'';state.active.reps=prev.reps||''}
+  save();renderWorkout();showPage('workoutPage');
+  speak('Starting Just Follow Me. First, treadmill warm-up. Walk to the treadmills on the right.');
+}
+function renderWorkout(){
+  if(!state.active)return;
+  const a=state.active,e=a.queue[a.exerciseIndex];
+  $('position').textContent=`Exercise ${a.exerciseIndex+1}/${a.queue.length} · Set ${a.setNumber}/${e.sets}`;
+  $('exerciseName').textContent=e.name;
+  $('exerciseTarget').textContent=e.target;
+  $('coachCue').textContent=e.cue;
+  $('weight').value=a.weight||'';
+  $('reps').value=a.reps||'';
+  $('setTimer').textContent=format(a.setSeconds||0);
+  $('restTimer').textContent=format(a.restSeconds||e.rest);
+  $('workoutProgress').style.width=((a.exerciseIndex+(a.setNumber-1)/e.sets)/a.queue.length*100)+'%';
+  document.querySelectorAll('[data-pain]').forEach(b=>b.classList.toggle('selected',+b.dataset.pain===a.pain));
+  $('startSet').style.display=a.phase==='ready'?'block':'none';
+  $('finishSet').style.display=a.phase==='set'?'block':'none';
+  $('restBlock').style.display=a.phase==='rest'?'block':'none';
+  const prev=previousFor(e.id);
+  $('lastResult').textContent=prev?`Last time: ${prev.weight||'—'} kg × ${prev.reps||'—'} · shoulder ${prev.pain}/5`:'No previous result. Start conservatively.';
+  a.savedAt=new Date().toISOString();
+  save();renderResume();renderProgress();
+}
+async function startSet(){
+  if(!state.active||state.active.phase!=='ready')return;
+  const overlay=$('countdown');
+  overlay.classList.add('show');
+  for(const n of [3,2,1]){
+    overlay.textContent=n;speak(String(n));await new Promise(r=>setTimeout(r,700));
+  }
+  overlay.textContent='GO';speak('Go');await new Promise(r=>setTimeout(r,350));overlay.classList.remove('show');
+  state.active.phase='set';state.active.setSeconds=0;save();renderWorkout();
+  setTick=setInterval(()=>{if(!state.active)return;state.active.setSeconds++;$('setTimer').textContent=format(state.active.setSeconds);save()},1000);
+}
+function finishSet(){
+  if(!state.active||state.active.phase!=='set')return;
+  clearInterval(setTick);setTick=null;
+  const a=state.active,e=a.queue[a.exerciseIndex];
+  state.logs.push({
+    date:new Date().toISOString(),exerciseId:e.id,exercise:e.name,set:a.setNumber,
+    weight:+a.weight||0,reps:+a.reps||0,pain:a.pain,seconds:a.setSeconds
+  });
+  if(a.pain>=5)speak('Stop this shoulder exercise. Move to a pain free alternative.');
+  else if(a.pain>=3)speak('Set complete. Keep the same or reduce the load.');
+  else speak('Set complete. Good control. Rest starts now.');
+
+  if(a.setNumber<e.sets){
+    a.setNumber++;a.phase='rest';a.restSeconds=e.rest;
+  }else if(a.exerciseIndex<a.queue.length-1){
+    a.exerciseIndex++;a.setNumber=1;a.phase='rest';a.restSeconds=e.rest;a.pain=1;
+    const next=a.queue[a.exerciseIndex],prev=previousFor(next.id);
+    a.weight=prev?.weight||'';a.reps=prev?.reps||'';
+  }else{
+    state.completed.push({date:new Date().toISOString()});
+    state.active=null;save();showPage('coachPage');renderAll();speak('Workout complete. Good work, Ryan.');return;
+  }
+  save();renderWorkout();startRest();
+}
+function startRest(){
+  clearInterval(restTick);
+  restTick=setInterval(()=>{
+    if(!state.active||state.active.phase!=='rest'){clearInterval(restTick);return}
+    state.active.restSeconds--;
+    $('restTimer').textContent=format(state.active.restSeconds);
+    if([60,30,10].includes(state.active.restSeconds))speak(`${state.active.restSeconds} seconds`);
+    if(state.active.restSeconds<=0){
+      clearInterval(restTick);state.active.phase='ready';
+      state.active.restSeconds=state.active.queue[state.active.exerciseIndex].rest;
+      save();renderWorkout();speak('Rest complete. Press start set when ready.');
+    }
+    save();
+  },1000);
+}
+function resume(){
+  if(!state.active)return;
+  showPage('workoutPage');renderWorkout();
+  if(state.active.phase==='set'){
+    setTick=setInterval(()=>{if(!state.active)return;state.active.setSeconds++;$('setTimer').textContent=format(state.active.setSeconds);save()},1000);
+  }
+  if(state.active.phase==='rest')startRest();
+  speak('Workout resumed.');
+}
+function renderResume(){
+  $('resumeCard').style.display=state.active?'block':'none';
+  if(state.active){
+    const e=state.active.queue[state.active.exerciseIndex];
+    $('resumeText').textContent=`${e.name} · set ${state.active.setNumber} · ${state.active.phase}`;
+  }
+}
+function renderProgress(){
+  $('progressText').textContent=state.logs.length?`${state.logs.length} sets completed and saved on this device.`:'No sets completed yet.';
+  $('recentLogs').innerHTML=state.logs.slice(-8).reverse().map(x=>`<div class="planitem"><strong>${x.exercise}</strong><span>${x.weight||'—'} kg × ${x.reps||'—'} · shoulder ${x.pain}/5</span></div>`).join('');
+  $('workoutCount').textContent=state.completed.length;
+  $('setCount').textContent=state.logs.length;
+  $('trainingDays').textContent=new Set(state.logs.map(x=>x.date.slice(0,10))).size;
+}
+function renderAll(){renderResume();renderProgress()}
+function saveReadiness(){
+  const p=+$('painNow').value;
+  state.readiness.push({date:new Date().toISOString(),pain:p,energy:$('energy').value});
+  save();
+  let text='Keep movements smooth and symptoms mild.';
+  if(p>=5)text='Use legs or gentle treadmill only. Avoid resisted shoulder work and seek clinical review if this is new or worsening.';
+  else if(p>=3)text='Keep shoulder work isometric or extremely light and below the painful arc.';
+  $('readinessAdvice').textContent=text;speak(text);
+}
+function moveOccupied(){
+  if(!state.active)return;
+  const a=state.active,item=a.queue.splice(a.exerciseIndex,1)[0];
+  a.queue.push(item);
+  if(a.exerciseIndex>=a.queue.length)a.exerciseIndex=0;
+  a.setNumber=1;a.phase='ready';a.setSeconds=0;
+  const e=a.queue[a.exerciseIndex],prev=previousFor(e.id);
+  a.weight=prev?.weight||'';a.reps=prev?.reps||'';a.pain=1;
+  save();renderWorkout();speak('Moved to the end. Continue with the next exercise.');
+}
+
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>showPage(b.dataset.page));
+$('startWorkout').onclick=newSession;
+$('resumeBtn').onclick=resume;
+$('discardBtn').onclick=()=>{if(confirm('Discard saved workout?')){state.active=null;save();renderAll()}};
+$('startSet').onclick=startSet;
+$('finishSet').onclick=finishSet;
+$('skipRest').onclick=()=>{if(state.active){clearInterval(restTick);state.active.phase='ready';state.active.restSeconds=state.active.queue[state.active.exerciseIndex].rest;save();renderWorkout();speak('Rest skipped.')}};
+$('leaveWorkout').onclick=()=>{save();showPage('coachPage');renderAll()};
+$('occupied').onclick=moveOccupied;
+$('weight').oninput=e=>{if(state.active){state.active.weight=e.target.value;save()}};
+$('reps').oninput=e=>{if(state.active){state.active.reps=e.target.value;save()}};
+$('painNow').oninput=e=>$('painNowOut').textContent=e.target.value;
+$('saveReadiness').onclick=saveReadiness;
+document.querySelectorAll('[data-pain]').forEach(b=>b.onclick=()=>{if(state.active){state.active.pain=+b.dataset.pain;renderWorkout()}});
+window.addEventListener('pagehide',save);
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')save()});
+
+const now=new Date();
+$('dateLabel').textContent=now.toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long'});
+$('greeting').textContent=`Good ${now.getHours()<12?'morning':now.getHours()<18?'afternoon':'evening'}, Ryan.`;
+renderAll();
+</script>
 </body>
 </html>
