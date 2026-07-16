@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0a1016">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>RyanFit Genesis — Build 9 · Visual Coach</title>
+<title>RyanFit Genesis — Build 10 · Coach Brain</title>
 <style>
 :root{--bg:#0a1016;--card:#151c25;--card2:#202a36;--line:#303c4b;--text:#f7f9fc;--muted:#aab6c6;--accent:#72e1ab;--warn:#ffd166;--blue:#74b9ff}
 *{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}body{min-height:100vh}button,input,select{font:inherit}
@@ -42,11 +42,25 @@ label{display:block;color:var(--muted);font-size:.82rem;margin:10px 0 5px}input,
 @keyframes demoPulse{0%,100%{transform:translateX(-10px)}50%{transform:translateX(10px)}}
 @media(max-width:520px){.visualPhoto{height:215px}.setupGrid{grid-template-columns:1fr}}
 
+
+.brainCard{background:linear-gradient(145deg,#18222d,#13251d);border-color:#365c4b}
+.brainHeader{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brainState{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border-radius:999px;background:#0d1713;border:1px solid #37664e;color:#dfffea;font-size:.78rem;font-weight:800}
+.brainState i{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(114,225,171,.12)}
+.brainDecision{font-size:1.08rem;font-weight:850;margin:10px 0 4px}
+.brainWhy{color:var(--muted);font-size:.88rem;line-height:1.4}
+.brainGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.brainMetric{background:rgba(255,255,255,.045);padding:10px;border-radius:12px}
+.brainMetric small{display:block;color:var(--muted);font-size:.68rem;margin-bottom:3px}
+.brainHistory{margin-top:10px;max-height:130px;overflow:auto}
+.brainHistory div{padding:7px 0;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted)}
+@media(max-width:520px){.brainGrid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
 <div class="app">
-<header><div><h1>RyanFit</h1><div class="sub">Genesis · Just follow me</div></div><span class="badge">Build 9</span></header>
+<header><div><h1>RyanFit</h1><div class="sub">Genesis · Just follow me</div></div><span class="badge">Build 10</span></header>
 <main>
 <section id="coachPage" class="page active">
 <article class="card hero"><div class="eyebrow" id="dateLabel"></div><h2 id="greeting"></h2><p>Stories, jokes and motivation play while you exercise. Rest is reserved for preparing the next set.</p><div class="stats"><div class="stat"><strong id="workoutCount">0</strong><span>workouts</span></div><div class="stat"><strong id="setCount">0</strong><span>sets logged</span></div><div class="stat"><strong id="trainingDays">0</strong><span>training days</span></div></div></article>
@@ -74,6 +88,25 @@ label{display:block;color:var(--muted);font-size:.82rem;margin:10px 0 5px}input,
 <section id="workoutPage" class="page"><article class="card">
 <div class="between"><span id="position" class="badge"></span><button id="leaveWorkout" class="quiet" style="width:auto">Leave</button></div>
 <div class="progressbar"><i id="workoutProgress"></i></div>
+<div id="brainCard" class="card brainCard">
+  <div class="brainHeader">
+    <div>
+      <div class="eyebrow">Coach Brain</div>
+      <h3 style="margin-bottom:0">Live decision engine</h3>
+    </div>
+    <span id="brainState" class="brainState"><i></i><span>SETUP</span></span>
+  </div>
+  <div id="brainDecision" class="brainDecision">Guide the setup</div>
+  <div id="brainWhy" class="brainWhy">The coach is choosing the most useful behaviour for this moment.</div>
+  <div class="brainGrid">
+    <div class="brainMetric"><small>VOICE MODE</small><strong id="brainVoice">Guide</strong></div>
+    <div class="brainMetric"><small>PRIORITY</small><strong id="brainPriority">Safety</strong></div>
+    <div class="brainMetric"><small>NEXT CHECK</small><strong id="brainNext">5 sec</strong></div>
+  </div>
+  <button id="explainBrain" class="quiet" style="margin-top:10px">Why did the coach choose this?</button>
+  <div id="brainHistory" class="brainHistory"></div>
+</div>
+
 <div class="eyebrow">Current exercise</div><h2 id="exerciseName"></h2><p id="exerciseTarget" class="muted"></p>
 <div id="visualCoach" class="visualCoach">
   <img id="visualPhoto" class="visualPhoto" alt="Exercise machine">
@@ -137,7 +170,7 @@ label{display:block;color:var(--muted);font-size:.82rem;margin:10px 0 5px}input,
 </div>
 <div id="countdown">3</div>
 <script>
-const KEY='ryanfit_genesis_build9';
+const KEY='ryanfit_genesis_build10',LEGACY_KEY='ryanfit_genesis_build9';
 const WORKOUT=[
 {id:'treadmill',type:'cardio',name:'Treadmill warm-up',target:'7 minutes',cue:'Walk to the treadmills on the right after entry. Set a comfortable pace.',setup:'Stand tall, relax your shoulders and attach the safety clip.',technique:'Use a comfortable pace that warms you without tiring you.',sets:1,rest:30,defaultWeight:0},
 {id:'iso-er',type:'hold',name:'External-rotation isometric',target:'20 seconds',cue:'Go to the cable area directly ahead.',setup:'Stand side-on with the elbow tucked against your ribs.',technique:'Press outward gently without moving. Use only twenty to thirty percent effort.',sets:2,rest:45,defaultWeight:0},
@@ -148,7 +181,7 @@ const WORKOUT=[
 ];
 let state=load(),setTick=null,restTick=null,conversationTick=null,coachPaused=false,lastConversationAt=0,lastLines=[];
 function defaultState(){return {active:null,logs:[],completed:[],readiness:[],settings:{voiceStyle:'calm',guidance:'normal',coachFlow:'guided',conversationMix:'balanced',promptFrequency:'high'},profile:{name:'Ryan',age:'',height:'',bodyWeight:'',goal:'rehab-strength',painLimit:'2',avoidOverhead:true,avoidDeepSquat:true,protectPelvis:true,healthNotes:'',treadmill:{speed:'5',incline:'3',minutes:'7',progression:'incline-first'},progression:{strengthStep:'2.5',easySessions:'2',painLimit:'2'},exercises:{}}}}
-function load(){const base=defaultState();try{const saved=JSON.parse(localStorage.getItem(KEY));if(!saved)return base;return {...base,...saved,settings:{...base.settings,...(saved.settings||{})},profile:{...base.profile,...(saved.profile||{}),treadmill:{...base.profile.treadmill,...(saved.profile?.treadmill||{})},progression:{...base.profile.progression,...(saved.profile?.progression||{})},exercises:{...base.profile.exercises,...(saved.profile?.exercises||{})}}}}catch{return base}}
+function load(){const base=defaultState();try{const saved=JSON.parse(localStorage.getItem(KEY)||localStorage.getItem(LEGACY_KEY));if(!saved)return base;return {...base,...saved,settings:{...base.settings,...(saved.settings||{})},profile:{...base.profile,...(saved.profile||{}),treadmill:{...base.profile.treadmill,...(saved.profile?.treadmill||{})},progression:{...base.profile.progression,...(saved.profile?.progression||{})},exercises:{...base.profile.exercises,...(saved.profile?.exercises||{})}}}}catch{return base}}
 function save(){localStorage.setItem(KEY,JSON.stringify(state))}
 function $(id){return document.getElementById(id)}
 function format(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
@@ -400,6 +433,135 @@ document.querySelectorAll('[data-visual-tab]').forEach(btn=>btn.addEventListener
 }));
 const renderWorkoutBuild8=renderWorkout;
 renderWorkout=function(){renderWorkoutBuild8();renderVisualCoach();};
+
+
+/* Build 10 — Coach Brain */
+const COACH_BRAIN={
+  phase:null,
+  decision:null,
+  history:[],
+  lastSpokenAt:0,
+  lastPromptKey:'',
+  evaluate(){
+    if(!state.active){
+      return {phase:'IDLE',behaviour:'Wait',priority:'Recovery',why:'No workout is currently active.',voice:'Quiet',next:'—',prompt:''};
+    }
+    const a=state.active,e=a.queue[a.exerciseIndex],pain=Number(a.pain||1);
+    if(coachPaused){
+      return {phase:'PAUSED',behaviour:'Stay quiet',priority:'User control',why:'The coach is paused while timers continue.',voice:'Silent',next:'On resume',prompt:''};
+    }
+    if(a.phase==='ready'){
+      const first=a.setNumber===1;
+      return {
+        phase:first?'SETUP':'READY',
+        behaviour:first?'Guide the setup':'Prepare the next set',
+        priority:pain>=5?'Safety':first?'Confidence':'Clarity',
+        why:first?`You are positioning for ${e.name}, so setup and safety information matter more than stories.`:`Rest has ended. The coach is keeping the instruction brief so you can begin set ${a.setNumber}.`,
+        voice:'Guide',
+        next:'5 sec',
+        prompt:`${e.cue} ${e.setup||''} Target ${e.target}.`
+      };
+    }
+    if(a.phase==='set'){
+      if(pain>=5){
+        return {phase:'WORK',behaviour:'Stop and protect',priority:'Safety',why:'The reported shoulder response is above the safe limit.',voice:'Safety',next:'Now',prompt:'Stop the set. Choose a pain-free alternative or finish this exercise.'};
+      }
+      const cardio=e.type==='cardio';
+      return {
+        phase:'WORK',
+        behaviour:cardio?'Engage and pace':'Coach technique',
+        priority:cardio?'Engagement':'Technique',
+        why:cardio?'Long cardio benefits from conversation with occasional pacing reminders.':'During a working set, short technique cues are more useful than long explanations.',
+        voice:cardio?'Companion':'Cue',
+        next:cardio?'20–30 sec':'10–15 sec',
+        prompt:cardio?freshLine(pickCategory('walk')):(e.technique||'Stay smooth and controlled.')
+      };
+    }
+    if(a.phase==='rest'){
+      const e=a.queue[a.exerciseIndex];
+      return {
+        phase:'REST',
+        behaviour:'Prepare what comes next',
+        priority:'Clarity',
+        why:'Rest is reserved for the next set, load, target and transition—not unrelated stories.',
+        voice:'Plan',
+        next:a.restSeconds>10?'20 sec':'Now',
+        prompt:nextSetPlan()
+      };
+    }
+    return {phase:'TRANSITION',behaviour:'Give one next action',priority:'Simplicity',why:'The coach reduces decisions by naming only the next useful action.',voice:'Guide',next:'Now',prompt:nextInstruction()};
+  },
+  update(force=false){
+    const d=this.evaluate();
+    const key=[d.phase,d.behaviour,d.priority,state.active?.exerciseIndex,state.active?.setNumber].join('|');
+    if(force||key!==this.lastPromptKey){
+      this.lastPromptKey=key;
+      this.history.unshift(`${new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})} · ${d.phase}: ${d.behaviour}`);
+      this.history=this.history.slice(0,6);
+    }
+    this.phase=d.phase;this.decision=d;
+    if($('brainState')){
+      $('brainState').querySelector('span').textContent=d.phase;
+      $('brainDecision').textContent=d.behaviour;
+      $('brainWhy').textContent=d.why;
+      $('brainVoice').textContent=d.voice;
+      $('brainPriority').textContent=d.priority;
+      $('brainNext').textContent=d.next;
+      $('brainHistory').innerHTML=this.history.map(x=>`<div>${x}</div>`).join('');
+    }
+    return d;
+  },
+  speakDecision(){
+    const d=this.update(true);
+    if(d.prompt)sayLive(`${d.behaviour}. ${d.prompt}`);
+    else sayLive(d.why);
+  }
+};
+
+const originalSayLive=sayLive;
+sayLive=function(text,interrupt=true){
+  COACH_BRAIN.lastSpokenAt=Date.now();
+  originalSayLive(text,interrupt);
+  setTimeout(()=>COACH_BRAIN.update(),0);
+};
+
+conversationContext=function(){
+  if(!state.active)return 'walk';
+  if(state.active.phase==='set')return state.active.queue[state.active.exerciseIndex].type==='cardio'?'walk':'set';
+  if(state.active.phase==='rest')return 'rest';
+  if(state.active.phase==='ready')return 'setup';
+  return 'walk';
+};
+
+conversationGap=function(){
+  const context=conversationContext();
+  if(context==='setup')return frequency()==='veryHigh'?20:35;
+  if(context==='set')return frequency()==='veryHigh'?20:frequency()==='high'?32:50;
+  if(context==='walk')return frequency()==='veryHigh'?18:frequency()==='high'?28:45;
+  return 24;
+};
+
+conversationLine=function(){
+  const d=COACH_BRAIN.evaluate();
+  if(d.phase==='REST'||d.phase==='SETUP'||d.phase==='READY')return d.prompt;
+  const context=conversationContext();
+  if(context==='set')return Math.random()<.72?(state.active.queue[state.active.exerciseIndex].technique||freshLine('motivation')):freshLine('motivation');
+  const category=pickCategory('walk');
+  return freshLine(category);
+};
+
+const renderWorkoutBuild9=renderWorkout;
+renderWorkout=function(){
+  renderWorkoutBuild9();
+  COACH_BRAIN.update();
+};
+
+$('explainBrain').onclick=()=>COACH_BRAIN.speakDecision();
+
+setInterval(()=>{
+  if(!state.active||coachPaused)return;
+  COACH_BRAIN.update();
+},5000);
 
 </script>
 </body>
