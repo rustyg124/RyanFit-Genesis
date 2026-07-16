@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0a1016">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>RyanFit Genesis — Build 6</title>
+<title>RyanFit Genesis — Build 7</title>
 <style>
 :root{--bg:#0a1016;--card:#151c25;--card2:#202a36;--line:#303c4b;--text:#f7f9fc;--muted:#aab6c6;--accent:#72e1ab;--warn:#ffd166;--blue:#74b9ff}
 *{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}body{min-height:100vh}button,input,select{font:inherit}
@@ -29,10 +29,10 @@ label{display:block;color:var(--muted);font-size:.82rem;margin:10px 0 5px}input,
 </head>
 <body>
 <div class="app">
-<header><div><h1>RyanFit</h1><div class="sub">Genesis · Just follow me</div></div><span class="badge">Build 6</span></header>
+<header><div><h1>RyanFit</h1><div class="sub">Genesis · Just follow me</div></div><span class="badge">Build 7</span></header>
 <main>
 <section id="coachPage" class="page active">
-<article class="card hero"><div class="eyebrow" id="dateLabel"></div><h2 id="greeting"></h2><p>Your coach is ready to guide, encourage and keep you engaged from start to finish.</p><div class="stats"><div class="stat"><strong id="workoutCount">0</strong><span>workouts</span></div><div class="stat"><strong id="setCount">0</strong><span>sets logged</span></div><div class="stat"><strong id="trainingDays">0</strong><span>training days</span></div></div></article>
+<article class="card hero"><div class="eyebrow" id="dateLabel"></div><h2 id="greeting"></h2><p>The coach entertains you while you work and uses rest periods to prepare the next set or exercise.</p><div class="stats"><div class="stat"><strong id="workoutCount">0</strong><span>workouts</span></div><div class="stat"><strong id="setCount">0</strong><span>sets logged</span></div><div class="stat"><strong id="trainingDays">0</strong><span>training days</span></div></div></article>
 <article class="card"><div class="between"><div><div class="eyebrow">Voice coach</div><div class="voiceStatus"><i id="voiceDot" class="dot"></i><span id="voiceText">Tap test to activate</span></div></div><button id="testVoice" class="secondary" style="width:auto">Test</button></div><label>Voice style</label><select id="voiceStyle"><option value="calm">Calm</option><option value="direct">Direct</option><option value="gruff">Gruff</option></select>
 <label>Guidance</label><select id="guidance"><option value="normal">Useful prompts</option><option value="high">High engagement</option><option value="minimal">Minimal</option></select>
 <label>Coach flow</label><select id="coachFlow"><option value="guided">Fully guided</option><option value="manual">Manual confirmations</option></select>
@@ -82,14 +82,14 @@ label{display:block;color:var(--muted);font-size:.82rem;margin:10px 0 5px}input,
 </div>
 <div id="countdown">3</div>
 <script>
-const KEY='ryanfit_genesis_build6';
+const KEY='ryanfit_genesis_build7';
 const WORKOUT=[
-{id:'treadmill',name:'Treadmill warm-up',target:'7 minutes',cue:'Walk to the treadmills on the right after entry. Set a comfortable pace.',sets:1,rest:30},
-{id:'iso-er',name:'External-rotation isometric',target:'20 seconds',cue:'Go to the cable area directly ahead. Keep your elbow tucked and press outward gently without moving.',sets:2,rest:45},
-{id:'cable-er',name:'Cable external rotation',target:'12 to 15 repetitions',cue:'Stay at the cable station. Use the lightest practical load and a short pain free range.',sets:2,rest:60},
-{id:'scap-row',name:'Low scapular retraction',target:'12 to 15 repetitions',cue:'Keep the arms low. Gently draw the shoulder blades back and down without shrugging.',sets:3,rest:60},
-{id:'leg-press',name:'Partial-depth leg press',target:'12 to 15 repetitions',cue:'Move to the pin loaded leg press ahead. Stop before pelvic or urethral stretch.',sets:3,rest:90},
-{id:'leg-curl',name:'Seated leg curl',target:'12 to 15 repetitions',cue:'Stay in the pin loaded area. Keep the hips supported and avoid groin pulling.',sets:3,rest:75}
+{id:'treadmill',type:'cardio',name:'Treadmill warm-up',target:'7 minutes',cue:'From the entrance, turn right to the treadmill row.',setup:'Choose a treadmill, attach the safety clip, and begin at a comfortable walking pace.',technique:'Stand tall, relax your shoulders and use a pace that warms you without tiring you.',sets:1,rest:30,defaultWeight:0},
+{id:'iso-er',type:'hold',name:'External-rotation isometric',target:'20 seconds',cue:'Leave the treadmill and walk straight ahead to the cable and pin-loaded area.',setup:'Stand side-on. Keep the left elbow tucked against your ribs. Press gently outward into resistance without moving the arm.',technique:'Use about twenty to thirty percent effort. Keep the neck relaxed and do not push into sharp pain.',sets:2,rest:45,defaultWeight:0},
+{id:'cable-er',type:'strength',name:'Cable external rotation',target:'12 to 15 repetitions',cue:'Stay at the adjustable cable station.',setup:'Move the pulley to elbow height, attach one handle and select the lightest practical plate.',technique:'Keep the elbow tucked. Rotate only through a comfortable range and return slowly.',sets:2,rest:60,defaultWeight:2.5},
+{id:'scap-row',type:'strength',name:'Low scapular retraction',target:'12 to 15 repetitions',cue:'Remain at the cable station and lower the handles if needed.',setup:'Use a light load with the arms kept low. Stand or sit in a stable position.',technique:'Draw the shoulder blades gently back and down. Do not shrug or pull far behind your body.',sets:3,rest:60,defaultWeight:5},
+{id:'leg-press',type:'strength',name:'Partial-depth leg press',target:'12 to 15 repetitions',cue:'Walk to the pin-loaded leg press in the machine area directly ahead.',setup:'Set the seat far enough back that your hips remain supported. Place the feet about shoulder-width apart.',technique:'Lower only until the pelvis stays stable and there is no urethral or groin stretch. Breathe continuously.',sets:3,rest:90,defaultWeight:20},
+{id:'leg-curl',type:'strength',name:'Seated leg curl',target:'12 to 15 repetitions',cue:'Stay in the pin-loaded area and move to the seated leg curl.',setup:'Align the knee with the pivot and secure the thigh pad without pressing into the groin.',technique:'Curl smoothly, pause briefly and return under control without lifting the hips.',sets:3,rest:75,defaultWeight:10}
 ];
 let state=load(),setTick=null,restTick=null,conversationTick=null,coachPaused=false,lastConversationAt=0,lastLines=[];
 function load(){try{return JSON.parse(localStorage.getItem(KEY))||{active:null,logs:[],completed:[],readiness:[],settings:{voiceStyle:'calm',guidance:'normal',coachFlow:'guided',conversationMix:'balanced',promptFrequency:'high'}}}catch{return {active:null,logs:[],completed:[],readiness:[],settings:{voiceStyle:'calm',guidance:'normal',coachFlow:'guided',conversationMix:'balanced',promptFrequency:'high'}}}}
@@ -97,142 +97,38 @@ function save(){localStorage.setItem(KEY,JSON.stringify(state))}
 function $(id){return document.getElementById(id)}
 function format(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
 function speak(text,interrupt=true){if(!('speechSynthesis' in window))return;const u=new SpeechSynthesisUtterance(text),style=state.settings?.voiceStyle||'calm';u.rate=style==='direct'?1.03:style==='gruff'?.84:.92;u.pitch=style==='gruff'?.68:.96;const voices=speechSynthesis.getVoices().filter(v=>/^en/i.test(v.lang));const preferred=voices.find(v=>/irish|ireland|moira/i.test(v.name))||voices[0];if(preferred)u.voice=preferred;if(interrupt)speechSynthesis.cancel();speechSynthesis.speak(u);$('voiceDot').classList.add('on');$('voiceText').textContent='Voice active'}
-function coachText(e){return `${e.cue} We are doing ${e.sets} sets. Target ${e.target}.`}
-
-function coachFlow(){return state.settings?.coachFlow||'guided'}
-function sayLive(text,interrupt=true){$('liveCoach').textContent=text;if(!coachPaused)speak(text,interrupt)}
-
-const TALK={
-motivation:[
-'You are already doing the hardest part. You are here.',
-'One clean repetition is progress.',
-'Keep stacking good decisions.',
-'You do not need perfect. You need completed.',
-'Consistency is doing the ordinary thing again.',
-'This session is another vote for the person you want to become.',
-'Stay patient. Strong work is built one set at a time.',
-'You have handled harder days than this.',
-'Finish this session and the rest of the day feels easier.',
-'You are not waiting for motivation. You are creating it.'
-],
-humour:[
-'Good news. The weights have agreed to remain exactly where you left them.',
-'Your muscles have submitted a complaint. It has been respectfully ignored.',
-'The machine is not judging you. It cannot even remember its own PIN.',
-'This rest period is sponsored by breathing heavily and pretending that was easy.',
-'Excellent form. Very inconvenient for your excuses.',
-'The dumbbells remain suspiciously quiet. Keep an eye on them.',
-'Today’s technical term is controlled suffering.',
-'If the machine is occupied, we call that unexpected cardio.',
-'The floor has once again failed to lift any of the weights.',
-'Your future self says thanks. Your current legs may disagree.'
-],
-facts:[
-'Training fact. Slower controlled repetitions can make light loads feel much more challenging.',
-'Technique fact. A stable setup usually makes the working muscles do more of the job.',
-'Recovery fact. Progress comes from training plus recovery, not training alone.',
-'Consistency fact. A modest session repeated regularly usually beats an occasional heroic one.',
-'Focus fact. Counting your exhale can help keep a set controlled.',
-'Progress fact. Adding one good repetition is still progressive overload.',
-'Warm-up fact. The goal is readiness, not fatigue.',
-'Rest fact. Longer rest can improve the quality of your next set.',
-'Form fact. Smooth lowering often improves control and confidence.',
-'Training fact. Leaving a little in reserve can support better weekly consistency.'
-],
-stories:[
-'Short story. A coach once asked an athlete to stop chasing perfect workouts and collect ordinary ones instead. Months later, the ordinary workouts had created extraordinary progress.',
-'Short story. One lifter tracked only whether he showed up. After one hundred visits, strength had improved almost by accident. Attendance was the habit that carried everything else.',
-'Short story. An endurance athlete used one rule on difficult days. Begin for five minutes, then decide. Most days, beginning was enough to continue.',
-'Short story. A rehabilitation coach described recovery as laying bricks. No single brick looks impressive, but eventually there is a wall.',
-'Short story. A veteran trainer said his best clients were not the most motivated. They were the ones who kept appointments with themselves.'
-],
-questions:[
-'Quick question for yourself. What would make today feel successful besides the numbers?',
-'Quick question. What is one thing you are looking forward to this week?',
-'Quick question. Which exercise has improved most since you began?',
-'Quick question. What would your future self thank you for doing today?',
-'Quick question. What is one small win from the last twenty four hours?'
-]
-};
-function mix(){return state.settings?.conversationMix||'balanced'}
-function frequency(){return state.settings?.promptFrequency||'high'}
-function conversationGap(){
-  return frequency()==='veryHigh'?18:frequency()==='high'?28:45;
-}
-function pickCategory(context){
-  const m=mix();
-  if(context==='set')return Math.random()<.75?'motivation':'facts';
-  if(context==='walk')return Math.random()<.45?'questions':Math.random()<.5?'motivation':'humour';
-  if(context==='rest'){
-    if(m==='motivation')return Math.random()<.65?'motivation':'facts';
-    if(m==='humour')return Math.random()<.55?'humour':'motivation';
-    if(m==='stories')return Math.random()<.55?'stories':'facts';
-    const r=Math.random();
-    return r<.3?'motivation':r<.5?'humour':r<.75?'facts':r<.9?'stories':'questions';
-  }
-  return 'motivation';
-}
-function freshLine(category){
-  const pool=TALK[category]||TALK.motivation;
-  let options=pool.filter(x=>!lastLines.includes(x));
-  if(!options.length){lastLines=[];options=pool}
-  const line=options[Math.floor(Math.random()*options.length)];
-  lastLines.push(line);if(lastLines.length>8)lastLines.shift();
-  return line;
-}
-function conversationContext(){
-  if(!state.active)return 'walk';
-  return state.active.phase==='set'?'set':state.active.phase==='rest'?'rest':'walk';
-}
-function conversationLine(){
-  const context=conversationContext();
-  const category=pickCategory(context);
-  return freshLine(category);
-}
-function startConversationEngine(){
-  clearInterval(conversationTick);
-  lastConversationAt=Date.now();
-  conversationTick=setInterval(()=>{
-    if(coachPaused||!state.active)return;
-    const elapsed=(Date.now()-lastConversationAt)/1000;
-    if(elapsed<conversationGap())return;
-    const context=conversationContext();
-    if(context==='set'&&frequency()==='normal')return;
-    const line=conversationLine();
-    sayLive(line,false);
-    lastConversationAt=Date.now();
-  },3000);
-}
-function stopConversationEngine(){clearInterval(conversationTick);conversationTick=null}
-function guidanceLevel(){return state.settings?.guidance||'normal'}
-function announcePlan(){
-  const names=WORKOUT.map(x=>x.name).join(', ');
-  sayLive(`Today has ${WORKOUT.length} exercises. ${names}. I will guide you one step at a time.`);
+function coachText(e){return `${e.cue} ${e.setup} Target ${e.target}. ${e.technique}`}
+function nextSetPlan(){
+  if(!state.active)return '';
+  const a=state.active,e=a.queue[a.exerciseIndex],following=a.queue[a.exerciseIndex+1];
+  const previous=previousFor(e.id),load=a.weight||previous?.weight||e.defaultWeight||0;
+  const loadText=load?`Use ${load} kilograms.`:'Use gentle resistance only.';
+  if(a.setNumber<e.sets)return `Next is set ${a.setNumber} of ${e.sets} for ${e.name}. ${loadText} Aim for ${e.target}. ${e.technique}`;
+  if(following)return `This is the final set of ${e.name}. ${loadText} Aim for ${e.target}. After this, move to ${following.name}. ${following.cue} ${following.setup}`;
+  return `This is the final set of the workout. ${loadText} Aim for ${e.target}. Finish with smooth controlled repetitions.`;
 }
 function nextInstruction(){
   if(!state.active)return '';
   const a=state.active,e=a.queue[a.exerciseIndex];
-  if(a.phase==='ready')return `Set up for ${e.name}. ${e.cue} Target ${e.target}.`;
-  if(a.phase==='set')return `You are working. Stay smooth and controlled.`;
-  if(a.phase==='rest'){
-    const n=a.queue[a.exerciseIndex];
-    return `Resting. Next is ${n.name}. ${n.cue}`;
-  }
+  if(a.phase==='ready')return `${e.cue} ${e.setup} ${e.technique} Target ${e.target}.`;
+  if(a.phase==='set')return `You are performing ${e.name}. ${e.technique}`;
+  if(a.phase==='rest')return nextSetPlan();
   return '';
 }
 function showPage(id){document.querySelectorAll('.page,nav button').forEach(x=>x.classList.remove('active'));$(id).classList.add('active');document.querySelector(`nav button[data-page="${id}"]`)?.classList.add('active');window.scrollTo(0,0)}
 function previousFor(id){return [...state.logs].reverse().find(x=>x.exerciseId===id)}
 function newSession(){state.active={queue:WORKOUT.map(x=>({...x})),exerciseIndex:0,setNumber:1,phase:'ready',setSeconds:0,restSeconds:WORKOUT[0].rest,weight:'',reps:'',pain:1};save();renderWorkout();showPage('workoutPage');sayLive(`Starting Just Follow Me. First exercise, ${WORKOUT[0].name}. ${coachText(WORKOUT[0])}`);startConversationEngine()}
-function renderWorkout(){if(!state.active)return;const a=state.active,e=a.queue[a.exerciseIndex];$('position').textContent=`Exercise ${a.exerciseIndex+1}/${a.queue.length} · Set ${a.setNumber}/${e.sets}`;$('exerciseName').textContent=e.name;$('exerciseTarget').textContent=e.target;$('coachCue').innerHTML=`<span>🎧</span><div>${e.cue}</div>`;$('weight').value=a.weight||'';$('reps').value=a.reps||'';$('setTimer').textContent=format(a.setSeconds||0);$('restTimer').textContent=format(a.restSeconds||e.rest);$('workoutProgress').style.width=((a.exerciseIndex+(a.setNumber-1)/e.sets)/a.queue.length*100)+'%';document.querySelectorAll('[data-pain]').forEach(b=>b.classList.toggle('selected',+b.dataset.pain===a.pain));$('readyBlock').style.display=a.phase==='ready'?'block':'none';$('loggingBlock').style.display=a.phase==='set'?'block':'none';$('restBlock').style.display=a.phase==='rest'?'block':'none';const prev=previousFor(e.id);$('lastResult').textContent=prev?`Last time: ${prev.weight||'—'} kg × ${prev.reps||'—'} · shoulder ${prev.pain}/5`:'No previous result. Start conservatively.';const next=a.queue[a.exerciseIndex+1];$('nextUp').textContent=next?`Next: ${next.name}. ${next.cue}`:`Next: another set of ${e.name}.`;$('coachStatus').textContent=nextInstruction();
+function renderWorkout(){if(!state.active)return;const a=state.active,e=a.queue[a.exerciseIndex];$('position').textContent=`Exercise ${a.exerciseIndex+1}/${a.queue.length} · Set ${a.setNumber}/${e.sets}`;$('exerciseName').textContent=e.name;$('exerciseTarget').textContent=e.target;$('coachCue').innerHTML=`<span>🎧</span><div>${e.cue}</div>`;$('weight').value=a.weight||'';$('reps').value=a.reps||'';$('setTimer').textContent=format(a.setSeconds||0);$('restTimer').textContent=format(a.restSeconds||e.rest);$('workoutProgress').style.width=((a.exerciseIndex+(a.setNumber-1)/e.sets)/a.queue.length*100)+'%';document.querySelectorAll('[data-pain]').forEach(b=>b.classList.toggle('selected',+b.dataset.pain===a.pain));$('readyBlock').style.display=a.phase==='ready'?'block':'none';$('loggingBlock').style.display=a.phase==='set'?'block':'none';$('restBlock').style.display=a.phase==='rest'?'block':'none';const prev=previousFor(e.id);$('lastResult').textContent=prev?`Last time: ${prev.weight||'—'} kg × ${prev.reps||'—'} · shoulder ${prev.pain}/5`:'No previous result. Start conservatively.';const next=a.queue[a.exerciseIndex+1];$('nextUp').textContent=nextSetPlan();$('coachStatus').textContent=nextInstruction();
 $('liveCoach').textContent=a.phase==='ready'?`Set up for ${e.name}. Tap I’m Ready when positioned.`:a.phase==='set'?`Set in progress. Stay controlled.`:`Resting. Next instruction is coming.`;
-$('conversationStatus').textContent=`${frequency()==='veryHigh'?'Very frequent':frequency()==='high'?'Frequent':'Moderate'}, ${mix()} engagement`;
+$('conversationStatus').textContent=`${frequency()==='veryHigh'?'Very frequent':frequency()==='high'?'Frequent':'Moderate'} entertainment during exercise. Rest is reserved for next-set coaching.`;
 save();renderResume();renderProgress()}
-async function imReady(){if(!state.active||state.active.phase!=='ready')return;const e=state.active.queue[state.active.exerciseIndex];sayLive(`Set ${state.active.setNumber}. Target ${e.target}. ${state.active.weight?`Use ${state.active.weight} kilograms.`:''} Get into position.`);const overlay=$('countdown');overlay.classList.add('show');for(const n of [3,2,1]){overlay.textContent=n;speak(String(n));await new Promise(r=>setTimeout(r,700))}overlay.textContent='GO';speak('Go');await new Promise(r=>setTimeout(r,350));overlay.classList.remove('show');state.active.phase='set';state.active.setSeconds=0;save();renderWorkout();setTick=setInterval(()=>{if(!state.active)return;state.active.setSeconds++;$('setTimer').textContent=format(state.active.setSeconds);if(state.active.setSeconds===5&&frequency()==='veryHigh')sayLive(freshLine('motivation'),false);
+async function imReady(){if(!state.active||state.active.phase!=='ready')return;const e=state.active.queue[state.active.exerciseIndex];const load=state.active.weight||previousFor(e.id)?.weight||e.defaultWeight||0;sayLive(`Set ${state.active.setNumber} of ${e.sets}. ${load?`Use ${load} kilograms.`:'Use gentle resistance.'} Target ${e.target}. ${e.technique} Get into position.`);const overlay=$('countdown');overlay.classList.add('show');for(const n of [3,2,1]){overlay.textContent=n;speak(String(n));await new Promise(r=>setTimeout(r,700))}overlay.textContent='GO';speak('Go');await new Promise(r=>setTimeout(r,350));overlay.classList.remove('show');state.active.phase='set';state.active.setSeconds=0;save();renderWorkout();setTick=setInterval(()=>{if(!state.active)return;state.active.setSeconds++;$('setTimer').textContent=format(state.active.setSeconds);if(state.active.setSeconds===5&&frequency()==='veryHigh')sayLive(freshLine('motivation'),false);
 if(guidanceLevel()==='high'&&state.active.setSeconds===8)sayLive('Good start. Stay smooth.',false);
-if(guidanceLevel()!=='minimal'&&state.active.setSeconds===15)sayLive('Keep breathing. Control the lowering.',false);
-if(guidanceLevel()==='high'&&state.active.setSeconds===25)sayLive('Strong work. Finish clean.',false);
-if(frequency()==='veryHigh'&&state.active.setSeconds===35)sayLive('Stay with it. One clean finish.',false);
-const current=state.active.queue[state.active.exerciseIndex];
+if(guidanceLevel()!=='minimal'&&state.active.setSeconds===15)sayLive(current.technique,false);
+if(guidanceLevel()==='high'&&state.active.setSeconds===25)sayLive(freshLine(mix()==='humour'?'humour':'motivation'),false);
+if(frequency()==='veryHigh'&&state.active.setSeconds===35)sayLive(freshLine(mix()==='stories'?'facts':'motivation'),false);
+if(current.type==='cardio'&&state.active.setSeconds>45&&state.active.setSeconds%30===0)sayLive(conversationLine(),false);
+if(current.type==='hold'&&state.active.setSeconds===10)sayLive(freshLine(mix()==='humour'?'humour':'motivation'),false);
 if(current.id==='treadmill'&&state.active.setSeconds===60)sayLive('One minute complete. Settle into a comfortable pace.',false);
 if(current.id==='treadmill'&&state.active.setSeconds===360)sayLive('One minute remaining on the treadmill.',false);
 if(current.id==='treadmill'&&state.active.setSeconds===420){
@@ -245,13 +141,16 @@ let feedback='Set complete. Good work. Rest starts now.';
 if(a.pain>=5)feedback='Stop this shoulder exercise. Move to a pain free alternative.';
 else if(a.pain>=3)feedback='Set complete. Keep the same load or reduce it.';
 else if(prev&&(+a.reps||0)>(+prev.reps||0))feedback='Set complete. You beat your previous reps. Nice work. Rest starts now.';
-sayLive(feedback);setTimeout(()=>{if(state.active&&state.active.phase==='rest'&&!coachPaused)sayLive(conversationLine(),false)},7000);if(a.setNumber<e.sets){a.setNumber++;a.phase='rest';a.restSeconds=e.rest}else if(a.exerciseIndex<a.queue.length-1){a.exerciseIndex++;a.setNumber=1;a.phase='rest';a.restSeconds=e.rest;a.pain=1;const next=a.queue[a.exerciseIndex],prev=previousFor(next.id);a.weight=prev?.weight||'';a.reps=prev?.reps||''}else{state.completed.push({date:new Date().toISOString()});stopConversationEngine();state.active=null;save();showPage('coachPage');renderAll();speak('Workout complete. You followed the plan and protected the shoulder. Good work, Ryan.');return}save();renderWorkout();startRest()}
-function startRest(){clearInterval(restTick);restTick=setInterval(()=>{if(!state.active||state.active.phase!=='rest'){clearInterval(restTick);return}state.active.restSeconds--;$('restTimer').textContent=format(state.active.restSeconds);if(state.active.restSeconds===45&&guidanceLevel()==='high')sayLive('Forty five seconds. Breathe and reset.');
-if(state.active.restSeconds===30&&guidanceLevel()!=='minimal'){
-  const e=state.active.queue[state.active.exerciseIndex];
-  sayLive(`Thirty seconds. Next is ${e.name}. Start moving toward the station if it is nearby.`);
+sayLive(feedback);if(a.setNumber<e.sets){a.setNumber++;a.phase='rest';a.restSeconds=e.rest}else if(a.exerciseIndex<a.queue.length-1){a.exerciseIndex++;a.setNumber=1;a.phase='rest';a.restSeconds=e.rest;a.pain=1;const next=a.queue[a.exerciseIndex],prev=previousFor(next.id);a.weight=prev?.weight||next.defaultWeight||'';a.reps=prev?.reps||''}else{state.completed.push({date:new Date().toISOString()});stopConversationEngine();state.active=null;save();showPage('coachPage');renderAll();speak('Workout complete. You followed the plan and protected the shoulder. Good work, Ryan.');return}save();renderWorkout();startRest()}
+function startRest(){clearInterval(restTick);restTick=setInterval(()=>{if(!state.active||state.active.phase!=='rest'){clearInterval(restTick);return}state.active.restSeconds--;$('restTimer').textContent=format(state.active.restSeconds);const e=state.active.queue[state.active.exerciseIndex],total=e.rest;
+if(state.active.restSeconds===total-5)sayLive(nextSetPlan());
+if(state.active.restSeconds===Math.max(30,Math.floor(total/2))&&guidanceLevel()!=='minimal'){
+  const load=state.active.weight||previousFor(e.id)?.weight||e.defaultWeight||0;
+  sayLive(`${state.active.setNumber===e.sets?'Final set':'Next set'}: ${e.name}. ${load?`Use ${load} kilograms.`:'Use gentle resistance.'} Target ${e.target}.`);
 }
-if(state.active.restSeconds===10)sayLive('Ten seconds. Get into position.');if(state.active.restSeconds<=0){clearInterval(restTick);state.active.phase='ready';state.active.restSeconds=state.active.queue[state.active.exerciseIndex].rest;save();renderWorkout();const e=state.active.queue[state.active.exerciseIndex];sayLive(`Rest complete. ${e.name}. ${e.cue} Press I'm Ready when set up.`)}save()},1000)}
+if(state.active.restSeconds===20)sayLive(e.technique);
+if(state.active.restSeconds===10)sayLive('Ten seconds. Get into position.');
+if(state.active.restSeconds===5)sayLive('Five seconds. One focused set.');if(state.active.restSeconds<=0){clearInterval(restTick);state.active.phase='ready';state.active.restSeconds=state.active.queue[state.active.exerciseIndex].rest;save();renderWorkout();const e=state.active.queue[state.active.exerciseIndex];sayLive(`Rest complete. ${e.name}. ${e.cue} ${e.setup} Press I'm Ready when set up. One strong controlled set.`)}save()},1000)}
 function resume(){if(!state.active)return;showPage('workoutPage');renderWorkout();if(state.active.phase==='set')setTick=setInterval(()=>{if(!state.active)return;state.active.setSeconds++;$('setTimer').textContent=format(state.active.setSeconds);save()},1000);if(state.active.phase==='rest')startRest();const e=state.active.queue[state.active.exerciseIndex];sayLive(`Workout resumed. ${e.name}. Set ${state.active.setNumber}.`);startConversationEngine()}
 function renderResume(){$('resumeCard').style.display=state.active?'block':'none';if(state.active){const e=state.active.queue[state.active.exerciseIndex];$('resumeText').textContent=`${e.name} · set ${state.active.setNumber} · ${state.active.phase}`}}
 function renderProgress(){$('progressText').textContent=state.logs.length?`${state.logs.length} sets completed and saved on this device.`:'No sets completed yet.';$('recentLogs').innerHTML=state.logs.slice(-8).reverse().map(x=>`<div class="planitem"><strong>${x.exercise}</strong><span>${x.weight||'—'} kg × ${x.reps||'—'} · shoulder ${x.pain}/5</span></div>`).join('');$('workoutCount').textContent=state.completed.length;$('setCount').textContent=state.logs.length;$('trainingDays').textContent=new Set(state.logs.map(x=>x.date.slice(0,10))).size}
@@ -274,7 +173,7 @@ $('leaveWorkout').onclick=()=>{stopConversationEngine();save();showPage('coachPa
   if(coachPaused){speechSynthesis.cancel();stopConversationEngine();$('liveCoach').textContent='Coach paused. Timers continue.'}
   else {sayLive('Coach resumed.');startConversationEngine();}
 };
-$('repeatCoach').onclick=()=>{if(state.active)sayLive(nextInstruction())};
+$('repeatCoach').onclick=()=>{if(state.active)sayLive(state.active.phase==='rest'?nextSetPlan():nextInstruction())};
 $('weight').oninput=e=>{if(state.active){state.active.weight=e.target.value;save()}};$('reps').oninput=e=>{if(state.active){state.active.reps=e.target.value;save()}};$('painNow').oninput=e=>$('painNowOut').textContent=e.target.value;$('saveReadiness').onclick=saveReadiness;
 document.querySelectorAll('[data-pain]').forEach(b=>b.onclick=()=>{if(state.active){state.active.pain=+b.dataset.pain;renderWorkout()}});
 window.addEventListener('pagehide',save);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')save()});
