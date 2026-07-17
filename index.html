@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0a1016">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>RyanFit Genesis — Build 10 · Coach Brain</title>
+<title>RyanFit Genesis — Build 11 · Calm Coach</title>
 <style>
 :root{--bg:#0a1016;--card:#151c25;--card2:#202a36;--line:#303c4b;--text:#f7f9fc;--muted:#aab6c6;--accent:#72e1ab;--warn:#ffd166;--blue:#74b9ff}
 *{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}body{min-height:100vh}button,input,select{font:inherit}
@@ -18,7 +18,7 @@ h1{margin:0;font-size:1.55rem}.sub,.muted{color:var(--muted)}.sub{font-size:.85r
 button{border:0;border-radius:14px;padding:14px 16px;font-weight:800;font-size:1rem}.primary{width:100%;background:var(--accent);color:#082016}.secondary{width:100%;background:var(--card2);color:var(--text);border:1px solid var(--line)}.quiet{width:100%;background:transparent;color:var(--muted);border:1px solid var(--line)}.warning{width:100%;background:var(--warn);color:#352800}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.between{display:flex;justify-content:space-between;align-items:center;gap:8px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.stat{background:rgba(255,255,255,.04);padding:11px;border-radius:14px}.stat strong{display:block;font-size:1.35rem}.stat span{font-size:.73rem;color:var(--muted)}
 label{display:block;color:var(--muted);font-size:.82rem;margin:10px 0 5px}input,select{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:#0f151c;color:var(--text)}
-.page{display:none}.page.active{display:block}nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(760px,100%);display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:#11171e;border-top:1px solid var(--line);z-index:30}nav button{background:transparent;color:var(--muted);padding:10px 4px;font-size:.78rem}nav button.active{background:var(--card2);color:var(--text)}
+.page{display:none}.page.active{display:block}nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(760px,100%);display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:#11171e;border-top:1px solid var(--line);z-index:30}nav button{background:transparent;color:var(--muted);padding:10px 4px;font-size:.78rem}nav button.active{background:var(--card2);color:var(--text)}
 .timer{text-align:center;font-size:3.2rem;font-variant-numeric:tabular-nums;font-weight:900;margin:14px}.timer.set{color:var(--accent)}.timer.rest{color:var(--blue)}
 .coachline{padding:14px;background:#13261e;border:1px solid #2b6249;border-radius:14px;color:#ddffeb;font-size:1.02rem;line-height:1.45}.spoken{display:flex;gap:10px;align-items:flex-start}.spoken span{font-size:1.4rem}.painrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.painrow button{background:var(--card2);color:var(--text);border:1px solid var(--line)}.painrow button.selected{outline:2px solid var(--accent)}
 .planitem{padding:12px 0;border-bottom:1px solid var(--line)}.planitem strong{display:block}.planitem span{color:var(--muted);font-size:.88rem}.progressbar{height:10px;background:#26313d;border-radius:999px;overflow:hidden;margin:12px 0}.progressbar i{display:block;height:100%;background:var(--accent);width:0}.last{padding:11px;background:var(--card2);border-radius:12px;color:var(--muted);margin-top:10px}
@@ -56,11 +56,12 @@ label{display:block;color:var(--muted);font-size:.82rem;margin:10px 0 5px}input,
 .brainHistory div{padding:7px 0;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted)}
 @media(max-width:520px){.brainGrid{grid-template-columns:1fr}}
 
+nav button[data-page="gymPage"],nav button[data-page="progressPage"]{display:none}
 </style>
 </head>
 <body>
 <div class="app">
-<header><div><h1>RyanFit</h1><div class="sub">Genesis · Just follow me</div></div><span class="badge">Build 10</span></header>
+<header><div><h1>RyanFit</h1><div class="sub">Genesis · Just follow me</div></div><span class="badge">Build 11</span></header>
 <main>
 <section id="coachPage" class="page active">
 <article class="card hero"><div class="eyebrow" id="dateLabel"></div><h2 id="greeting"></h2><p>Stories, jokes and motivation play while you exercise. Rest is reserved for preparing the next set.</p><div class="stats"><div class="stat"><strong id="workoutCount">0</strong><span>workouts</span></div><div class="stat"><strong id="setCount">0</strong><span>sets logged</span></div><div class="stat"><strong id="trainingDays">0</strong><span>training days</span></div></div></article>
@@ -150,8 +151,8 @@ label{display:block;color:var(--muted);font-size:.82rem;margin:10px 0 5px}input,
 </div>
 <div id="restBlock" style="display:none"><div class="eyebrow" style="text-align:center;margin-top:18px">Rest</div><div id="restTimer" class="timer rest">01:00</div><div id="nextUp" class="coachline"></div><button id="skipRest" class="quiet" style="margin-top:10px">Skip rest</button></div>
 <button id="pauseCoach" class="quiet" style="margin-top:10px">Pause coach</button>
-<button id="repeatCoach" class="quiet" style="margin-top:10px">Repeat instruction</button>
-<button id="occupied" class="warning" style="margin-top:10px">Machine occupied — move to end</button>
+<details style="margin-top:10px"><summary>More options</summary><button id="repeatCoach" class="quiet" style="margin-top:10px">Repeat instruction</button>
+<button id="occupied" class="warning" style="margin-top:10px">Machine occupied — move to end</button></details>
 </article></section>
 
 <section id="gymPage" class="page"><article class="card"><h2>Gym directions</h2><div class="planitem"><strong>Cardio</strong><span>Directly right after entry: treadmills and StairMill</span></div><div class="planitem"><strong>Pin-loaded machines</strong><span>Directly ahead from entry</span></div><div class="planitem"><strong>Functional room</strong><span>Middle-right room: rower and functional equipment</span></div><div class="planitem"><strong>Free weights</strong><span>Rear: benches, dumbbells, Smith and plate-loaded machines</span></div></article></section>
@@ -563,6 +564,6 @@ setInterval(()=>{
   COACH_BRAIN.update();
 },5000);
 
-</script>
+const _oldConversationLine=conversationLine;conversationLine=function(){if(state.active&&state.active.phase==='rest')return nextSetPlan();return _oldConversationLine();};</script>
 </body>
 </html>
