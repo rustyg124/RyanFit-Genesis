@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0a1016">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>RyanFit Genesis — Build 11 · Calm Coach</title>
+<title>RyanFit Genesis — Build 11 · Coach Intelligence</title>
 <style>
 :root{--bg:#0a1016;--card:#151c25;--card2:#202a36;--line:#303c4b;--text:#f7f9fc;--muted:#aab6c6;--accent:#72e1ab;--warn:#ffd166;--blue:#74b9ff}
 *{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}body{min-height:100vh}button,input,select{font:inherit}
@@ -18,7 +18,7 @@ h1{margin:0;font-size:1.55rem}.sub,.muted{color:var(--muted)}.sub{font-size:.85r
 button{border:0;border-radius:14px;padding:14px 16px;font-weight:800;font-size:1rem}.primary{width:100%;background:var(--accent);color:#082016}.secondary{width:100%;background:var(--card2);color:var(--text);border:1px solid var(--line)}.quiet{width:100%;background:transparent;color:var(--muted);border:1px solid var(--line)}.warning{width:100%;background:var(--warn);color:#352800}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.between{display:flex;justify-content:space-between;align-items:center;gap:8px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.stat{background:rgba(255,255,255,.04);padding:11px;border-radius:14px}.stat strong{display:block;font-size:1.35rem}.stat span{font-size:.73rem;color:var(--muted)}
 label{display:block;color:var(--muted);font-size:.82rem;margin:10px 0 5px}input,select{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:#0f151c;color:var(--text)}
-.page{display:none}.page.active{display:block}nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(760px,100%);display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:#11171e;border-top:1px solid var(--line);z-index:30}nav button{background:transparent;color:var(--muted);padding:10px 4px;font-size:.78rem}nav button.active{background:var(--card2);color:var(--text)}
+.page{display:none}.page.active{display:block}nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(760px,100%);display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:#11171e;border-top:1px solid var(--line);z-index:30}nav button{background:transparent;color:var(--muted);padding:10px 4px;font-size:.78rem}nav button.active{background:var(--card2);color:var(--text)}
 .timer{text-align:center;font-size:3.2rem;font-variant-numeric:tabular-nums;font-weight:900;margin:14px}.timer.set{color:var(--accent)}.timer.rest{color:var(--blue)}
 .coachline{padding:14px;background:#13261e;border:1px solid #2b6249;border-radius:14px;color:#ddffeb;font-size:1.02rem;line-height:1.45}.spoken{display:flex;gap:10px;align-items:flex-start}.spoken span{font-size:1.4rem}.painrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.painrow button{background:var(--card2);color:var(--text);border:1px solid var(--line)}.painrow button.selected{outline:2px solid var(--accent)}
 .planitem{padding:12px 0;border-bottom:1px solid var(--line)}.planitem strong{display:block}.planitem span{color:var(--muted);font-size:.88rem}.progressbar{height:10px;background:#26313d;border-radius:999px;overflow:hidden;margin:12px 0}.progressbar i{display:block;height:100%;background:var(--accent);width:0}.last{padding:11px;background:var(--card2);border-radius:12px;color:var(--muted);margin-top:10px}
@@ -56,7 +56,36 @@ label{display:block;color:var(--muted);font-size:.82rem;margin:10px 0 5px}input,
 .brainHistory div{padding:7px 0;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted)}
 @media(max-width:520px){.brainGrid{grid-template-columns:1fr}}
 
-nav button[data-page="gymPage"],nav button[data-page="progressPage"]{display:none}
+
+/* Build 11 — Coach Intelligence */
+.exerciseHero{padding:18px;background:linear-gradient(145deg,#17241f,#121a22);border:1px solid #315847;border-radius:18px;margin:14px 0}
+.exerciseHero h2{font-size:2rem;line-height:1.05;margin:.25rem 0}
+.exerciseHero .bigTarget{font-size:1.35rem;font-weight:850;color:var(--accent)}
+.exerciseMeta{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.exerciseMeta div{background:rgba(255,255,255,.045);padding:10px;border-radius:12px}
+.exerciseMeta small{display:block;color:var(--muted);font-size:.68rem}
+.exerciseIntel{margin:12px 0}
+.exerciseIntel details{background:#101821;border:1px solid var(--line);border-radius:14px;margin:8px 0;padding:0 12px}
+.exerciseIntel summary{cursor:pointer;padding:13px 0;font-weight:800}
+.exerciseIntel .intelBody{padding:0 0 13px;color:var(--muted);line-height:1.45}
+.exerciseIntel ul{margin:8px 0;padding-left:20px}
+.libraryToolbar{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.exerciseLibrary{display:grid;gap:10px}
+.libraryCard{background:#101821;border:1px solid var(--line);border-radius:16px;padding:14px}
+.libraryTop{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.libraryCard h4{margin:0 0 3px;font-size:1rem}
+.libraryStatus{font-size:.72rem;padding:5px 8px;border-radius:999px;background:#1f2c38;color:var(--muted)}
+.libraryStats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:10px 0}
+.libraryStats div{background:rgba(255,255,255,.04);padding:8px;border-radius:10px}
+.libraryStats small{display:block;color:var(--muted);font-size:.65rem}
+.libraryPrefs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.libraryPrefs select,.libraryPrefs input{padding:10px}
+.cleanActions details{margin-top:10px}
+.cleanActions summary{color:var(--muted);cursor:pointer;text-align:center;padding:8px}
+.restFocus{background:#111b24;border:1px solid #2b4b61;border-radius:14px;padding:12px;margin-top:10px}
+.restFocus strong{display:block;margin-bottom:4px}
+@media(max-width:520px){.exerciseMeta,.libraryStats,.libraryToolbar,.libraryPrefs{grid-template-columns:1fr}.exerciseHero h2{font-size:1.65rem}}
+
 </style>
 </head>
 <body>
@@ -108,7 +137,24 @@ nav button[data-page="gymPage"],nav button[data-page="progressPage"]{display:non
   <div id="brainHistory" class="brainHistory"></div>
 </div>
 
-<div class="eyebrow">Current exercise</div><h2 id="exerciseName"></h2><p id="exerciseTarget" class="muted"></p>
+
+<div class="exerciseHero">
+  <div class="eyebrow">Current exercise</div>
+  <h2 id="exerciseName"></h2>
+  <div id="exerciseTarget" class="bigTarget"></div>
+  <div class="exerciseMeta">
+    <div><small>COACHING LEVEL</small><strong id="exerciseLevel">Guide</strong></div>
+    <div><small>FAMILIARITY</small><strong id="exerciseFamiliarity">New</strong></div>
+    <div><small>STATUS</small><strong id="exercisePreference">Neutral</strong></div>
+  </div>
+</div>
+<div id="exerciseIntel" class="exerciseIntel">
+  <details open><summary>Why this exercise?</summary><div id="intelPurpose" class="intelBody"></div></details>
+  <details><summary>Specific instructions</summary><div id="intelInstructions" class="intelBody"></div></details>
+  <details><summary>Common mistakes</summary><div id="intelMistakes" class="intelBody"></div></details>
+  <details><summary>How it is adapted for you</summary><div id="intelAdaptation" class="intelBody"></div></details>
+</div>
+
 <div id="visualCoach" class="visualCoach">
   <img id="visualPhoto" class="visualPhoto" alt="Exercise machine">
   <div class="visualBody">
@@ -150,9 +196,14 @@ nav button[data-page="gymPage"],nav button[data-page="progressPage"]{display:non
 <div id="setTimer" class="timer set">00:00</div><button id="finishSet" class="secondary">Save finished set</button>
 </div>
 <div id="restBlock" style="display:none"><div class="eyebrow" style="text-align:center;margin-top:18px">Rest</div><div id="restTimer" class="timer rest">01:00</div><div id="nextUp" class="coachline"></div><button id="skipRest" class="quiet" style="margin-top:10px">Skip rest</button></div>
+<div class="cleanActions">
+<details>
+<summary>More options</summary>
 <button id="pauseCoach" class="quiet" style="margin-top:10px">Pause coach</button>
-<details style="margin-top:10px"><summary>More options</summary><button id="repeatCoach" class="quiet" style="margin-top:10px">Repeat instruction</button>
-<button id="occupied" class="warning" style="margin-top:10px">Machine occupied — move to end</button></details>
+<button id="repeatCoach" class="quiet" style="margin-top:10px">Repeat instruction</button>
+<button id="occupied" class="warning" style="margin-top:10px">Machine occupied — move to end</button>
+</details>
+</div>
 </article></section>
 
 <section id="gymPage" class="page"><article class="card"><h2>Gym directions</h2><div class="planitem"><strong>Cardio</strong><span>Directly right after entry: treadmills and StairMill</span></div><div class="planitem"><strong>Pin-loaded machines</strong><span>Directly ahead from entry</span></div><div class="planitem"><strong>Functional room</strong><span>Middle-right room: rower and functional equipment</span></div><div class="planitem"><strong>Free weights</strong><span>Rear: benches, dumbbells, Smith and plate-loaded machines</span></div></article></section>
@@ -164,6 +215,17 @@ nav button[data-page="gymPage"],nav button[data-page="progressPage"]{display:non
 <article class="card"><h3>Health and restrictions</h3><label>Shoulder pain ceiling</label><select id="painLimit"><option value="2">2/10</option><option value="3">3/10</option><option value="4">4/10</option></select><label><input id="avoidOverhead" type="checkbox" style="width:auto"> Avoid overhead pressing</label><label><input id="avoidDeepSquat" type="checkbox" style="width:auto"> Avoid deep squats</label><label><input id="protectPelvis" type="checkbox" style="width:auto"> Protect pelvic/urethral area from deep stretch</label><label>Notes</label><input id="healthNotes" placeholder="Important notes for the coach"></article>
 <article class="card"><h3>Cardio defaults</h3><div class="grid2"><div><label>Speed (km/h)</label><input id="treadmillSpeed" type="number" step="0.1"></div><div><label>Incline</label><input id="treadmillIncline" type="number" step="0.5"></div><div><label>Duration (minutes)</label><input id="treadmillMinutes" type="number"></div><div><label>Progression</label><select id="cardioProgression"><option value="incline-first">Increase incline first</option><option value="speed-first">Increase speed first</option><option value="duration-first">Increase duration first</option><option value="hold">Keep the same</option></select></div></div></article>
 <article class="card"><h3>Exercise starting points</h3><p class="muted">These become the load and machine settings announced by the coach.</p><div id="exerciseProfileList"></div></article>
+
+<article class="card">
+  <div class="eyebrow">Coach memory</div>
+  <h3>My Exercise Library</h3>
+  <p class="muted">Tell the coach what is familiar, what you enjoy, and what needs more instruction.</p>
+  <div class="libraryToolbar">
+    <select id="libraryFilter"><option value="all">All exercises</option><option value="new">New</option><option value="learning">Learning</option><option value="confident">Confident</option><option value="mastered">Mastered</option><option value="avoid">Avoid</option></select>
+    <select id="librarySort"><option value="recent">Most recent</option><option value="name">Name</option><option value="sessions">Most sessions</option><option value="confidence">Highest confidence</option></select>
+  </div>
+  <div id="exerciseLibrary" class="exerciseLibrary"></div>
+</article>
 <article class="card"><h3>Progression rules</h3><label>Strength increase</label><select id="strengthStep"><option value="1">1 kg</option><option value="2.5">2.5 kg</option><option value="5">5 kg</option></select><label>Increase after</label><select id="easySessions"><option value="1">1 comfortable session</option><option value="2">2 comfortable sessions</option><option value="3">3 comfortable sessions</option></select><label>Do not progress above shoulder pain</label><select id="progressPainLimit"><option value="1">1/10</option><option value="2">2/10</option><option value="3">3/10</option></select></article>
 <article class="card"><button id="saveCoachProfile" class="primary">Save My Coach profile</button><p id="profileSaved" class="muted" style="text-align:center"></p></article>
 </section></main>
@@ -171,7 +233,7 @@ nav button[data-page="gymPage"],nav button[data-page="progressPage"]{display:non
 </div>
 <div id="countdown">3</div>
 <script>
-const KEY='ryanfit_genesis_build10',LEGACY_KEY='ryanfit_genesis_build9';
+const KEY='ryanfit_genesis_build11',LEGACY_KEY='ryanfit_genesis_build10';
 const WORKOUT=[
 {id:'treadmill',type:'cardio',name:'Treadmill warm-up',target:'7 minutes',cue:'Walk to the treadmills on the right after entry. Set a comfortable pace.',setup:'Stand tall, relax your shoulders and attach the safety clip.',technique:'Use a comfortable pace that warms you without tiring you.',sets:1,rest:30,defaultWeight:0},
 {id:'iso-er',type:'hold',name:'External-rotation isometric',target:'20 seconds',cue:'Go to the cable area directly ahead.',setup:'Stand side-on with the elbow tucked against your ribs.',technique:'Press outward gently without moving. Use only twenty to thirty percent effort.',sets:2,rest:45,defaultWeight:0},
@@ -564,6 +626,201 @@ setInterval(()=>{
   COACH_BRAIN.update();
 },5000);
 
-const _oldConversationLine=conversationLine;conversationLine=function(){if(state.active&&state.active.phase==='rest')return nextSetPlan();return _oldConversationLine();};</script>
+
+/* Build 11 — Exercise Intelligence */
+const EXERCISE_INTELLIGENCE={
+  treadmill:{
+    purpose:'Warm the body, raise circulation and prepare the shoulders and legs without creating fatigue.',
+    instructions:['Attach the safety clip before increasing speed.','Walk tall with relaxed shoulders.','Use a pace that lets you speak in full sentences.','Avoid leaning heavily on the rails.'],
+    mistakes:['Starting too fast.','Shrugging the shoulders.','Holding the rails continuously when balance allows hands-free walking.'],
+    adaptation:'Keep the pace comfortable and avoid turning the warm-up into a hard conditioning effort.',
+    progression:'Increase only one variable at a time: incline, speed or duration.'
+  },
+  'iso-er':{
+    purpose:'Activate the rotator cuff with very little joint movement before progressing to loaded rotation.',
+    instructions:['Stand side-on to the cable.','Keep the elbow gently against the ribs.','Press outward at only twenty to thirty percent effort.','Hold without letting the wrist or elbow move.'],
+    mistakes:['Pushing too hard.','Letting the elbow drift away from the body.','Twisting the torso instead of creating shoulder tension.'],
+    adaptation:'Use a towel between elbow and ribs if that helps positioning. Stop if pain is sharp or rising.',
+    progression:'Increase hold quality or duration before increasing resistance.'
+  },
+  'cable-er':{
+    purpose:'Build rotator-cuff strength and shoulder stability through a controlled pain-free range.',
+    instructions:['Set the pulley at elbow height.','Keep the elbow lightly touching your side.','Rotate from the shoulder, not the wrist.','Return slowly and stop before the shoulder rolls forward.'],
+    mistakes:['Using too much range.','Moving the elbow away from the body.','Twisting the torso.','Returning too quickly.'],
+    adaptation:'Use a short range and light load. Avoid any painful arc or compensating shoulder movement.',
+    progression:'Progress only after repeated sessions with smooth technique and pain at or below the selected limit.'
+  },
+  'scap-row':{
+    purpose:'Improve shoulder-blade control without loading an overhead or pressing pattern.',
+    instructions:['Keep the chest relaxed and ribs stacked.','Draw the shoulder blades gently back and down.','Keep the arms quiet.','Pause briefly, then release without shrugging.'],
+    mistakes:['Turning it into a full row.','Shrugging.','Arching the lower back.','Using momentum.'],
+    adaptation:'Use a very light load and a small movement. The goal is control, not force.',
+    progression:'Add repetitions or precision before adding load.'
+  },
+  'leg-press':{
+    purpose:'Build lower-body strength while avoiding deep squatting and excessive pelvic stretch.',
+    instructions:['Place feet about shoulder width apart.','Keep hips and lower back supported.','Lower only to your safe depth.','Drive through the whole foot.','Finish without locking the knees.'],
+    mistakes:['Going too deep.','Letting the pelvis tuck under.','Knees collapsing inward.','Locking the knees hard at the top.'],
+    adaptation:'Use partial depth and stop before pelvic or urethral stretch. Choose a seat position that keeps the back supported.',
+    progression:'Increase by the chosen step only after comfortable sessions with stable technique.'
+  },
+  'leg-curl':{
+    purpose:'Strengthen the hamstrings with the torso supported and without deep knee or hip flexion.',
+    instructions:['Align the knee with the machine pivot.','Secure the thigh pad comfortably.','Keep the hips down.','Curl smoothly, pause, then return slowly.'],
+    mistakes:['Lifting the hips.','Using momentum.','Setting the thigh pad too loose.','Letting the weight stack slam.'],
+    adaptation:'Choose a comfortable range and keep the pelvis supported throughout.',
+    progression:'Add reps first, then increase load once all reps stay controlled.'
+  }
+};
+
+function exerciseHistory(id){
+  const logs=(state.logs||[]).filter(x=>x.exerciseId===id);
+  const sessions=new Set(logs.map(x=>x.date.slice(0,10))).size;
+  const last=logs.length?logs[logs.length-1]:null;
+  const best=logs.reduce((m,x)=>Math.max(m,Number(x.weight||0)),0);
+  return {logs,sessions,last,best};
+}
+function exerciseMemory(id){
+  state.profile.exerciseMemory=state.profile.exerciseMemory||{};
+  const base={preference:'neutral',confidence:0,coachingLevel:'teach',notes:'',status:'new'};
+  return {...base,...(state.profile.exerciseMemory[id]||{})};
+}
+function inferredStatus(id){
+  const h=exerciseHistory(id),m=exerciseMemory(id);
+  if(m.preference==='avoid')return 'avoid';
+  if(h.sessions===0)return 'new';
+  if(m.confidence>=85||h.sessions>=12)return 'mastered';
+  if(m.confidence>=60||h.sessions>=5)return 'confident';
+  return 'learning';
+}
+function inferredCoachingLevel(id){
+  const m=exerciseMemory(id),status=inferredStatus(id);
+  if(m.coachingLevel&&m.coachingLevel!=='auto')return m.coachingLevel;
+  return status==='new'?'teach':status==='learning'?'guide':status==='confident'?'remind':'silent';
+}
+function renderExerciseIntelligence(){
+  if(!state.active)return;
+  const e=state.active.queue[state.active.exerciseIndex],intel=EXERCISE_INTELLIGENCE[e.id]||{};
+  const mem=exerciseMemory(e.id),status=inferredStatus(e.id),level=inferredCoachingLevel(e.id);
+  $('exerciseLevel').textContent=level[0].toUpperCase()+level.slice(1);
+  $('exerciseFamiliarity').textContent=status[0].toUpperCase()+status.slice(1);
+  $('exercisePreference').textContent=(mem.preference||'neutral')[0].toUpperCase()+(mem.preference||'neutral').slice(1);
+  $('intelPurpose').textContent=intel.purpose||'This exercise supports today’s training goal.';
+  $('intelInstructions').innerHTML=`<ul>${(intel.instructions||[e.technique]).map(x=>`<li>${x}</li>`).join('')}</ul>`;
+  $('intelMistakes').innerHTML=`<ul>${(intel.mistakes||['Rushing the movement.']).map(x=>`<li>${x}</li>`).join('')}</ul>`;
+  $('intelAdaptation').innerHTML=`<p>${intel.adaptation||'Use a comfortable pain-free range.'}</p><p><b>Progression:</b> ${intel.progression||'Progress gradually when technique remains consistent.'}</p>`;
+}
+function renderExerciseLibrary(){
+  const root=$('exerciseLibrary'); if(!root)return;
+  let items=WORKOUT.map(e=>{
+    const h=exerciseHistory(e.id),m=exerciseMemory(e.id);
+    return {e,h,m,status:inferredStatus(e.id)};
+  });
+  const filter=$('libraryFilter')?.value||'all';
+  if(filter!=='all')items=items.filter(x=>x.status===filter);
+  const sort=$('librarySort')?.value||'recent';
+  items.sort((a,b)=>{
+    if(sort==='name')return a.e.name.localeCompare(b.e.name);
+    if(sort==='sessions')return b.h.sessions-a.h.sessions;
+    if(sort==='confidence')return Number(b.m.confidence||0)-Number(a.m.confidence||0);
+    return (b.h.last?.date||'').localeCompare(a.h.last?.date||'');
+  });
+  root.innerHTML=items.map(({e,h,m,status})=>`
+    <div class="libraryCard">
+      <div class="libraryTop">
+        <div><h4>${e.name}</h4><div class="muted">${EXERCISE_INTELLIGENCE[e.id]?.purpose||''}</div></div>
+        <span class="libraryStatus">${status}</span>
+      </div>
+      <div class="libraryStats">
+        <div><small>SESSIONS</small><strong>${h.sessions}</strong></div>
+        <div><small>BEST</small><strong>${h.best?h.best+' kg':'—'}</strong></div>
+        <div><small>LAST</small><strong>${h.last?new Date(h.last.date).toLocaleDateString():'Never'}</strong></div>
+      </div>
+      <div class="libraryPrefs">
+        <div><label>Preference</label><select data-lib-id="${e.id}" data-lib-field="preference">
+          <option value="favourite" ${m.preference==='favourite'?'selected':''}>Favourite</option>
+          <option value="like" ${m.preference==='like'?'selected':''}>Like</option>
+          <option value="neutral" ${m.preference==='neutral'?'selected':''}>Neutral</option>
+          <option value="dislike" ${m.preference==='dislike'?'selected':''}>Dislike</option>
+          <option value="avoid" ${m.preference==='avoid'?'selected':''}>Avoid</option>
+        </select></div>
+        <div><label>Coaching</label><select data-lib-id="${e.id}" data-lib-field="coachingLevel">
+          <option value="auto" ${m.coachingLevel==='auto'?'selected':''}>Automatic</option>
+          <option value="teach" ${m.coachingLevel==='teach'?'selected':''}>Teach me</option>
+          <option value="guide" ${m.coachingLevel==='guide'?'selected':''}>Guide me</option>
+          <option value="remind" ${m.coachingLevel==='remind'?'selected':''}>Just remind me</option>
+          <option value="silent" ${m.coachingLevel==='silent'?'selected':''}>Minimal</option>
+        </select></div>
+        <div><label>Confidence ${Number(m.confidence||0)}%</label><input data-lib-id="${e.id}" data-lib-field="confidence" type="range" min="0" max="100" value="${Number(m.confidence||0)}"></div>
+        <div><label>Coach notes</label><input data-lib-id="${e.id}" data-lib-field="notes" value="${m.notes||''}" placeholder="What should the coach remember?"></div>
+      </div>
+    </div>`).join('');
+  root.querySelectorAll('[data-lib-id]').forEach(el=>el.onchange=()=>{
+    const id=el.dataset.libId,field=el.dataset.libField;
+    state.profile.exerciseMemory=state.profile.exerciseMemory||{};
+    state.profile.exerciseMemory[id]={...exerciseMemory(id),[field]:field==='confidence'?Number(el.value):el.value};
+    save();renderExerciseLibrary();
+  });
+}
+$('libraryFilter')?.addEventListener('change',renderExerciseLibrary);
+$('librarySort')?.addEventListener('change',renderExerciseLibrary);
+
+const _renderCoachProfile10=renderCoachProfile;
+renderCoachProfile=function(){_renderCoachProfile10();renderExerciseLibrary();};
+
+const _renderWorkout10=renderWorkout;
+renderWorkout=function(){_renderWorkout10();renderExerciseIntelligence();};
+
+const _startConversationEngine10=startConversationEngine;
+startConversationEngine=function(){
+  clearInterval(conversationTick);
+  lastConversationAt=Date.now();
+  conversationTick=setInterval(()=>{
+    if(coachPaused||!state.active)return;
+    const context=conversationContext();
+    const elapsed=(Date.now()-lastConversationAt)/1000;
+    if(context==='rest')return; // Rest is handled only by the structured rest timer.
+    if(elapsed<conversationGap())return;
+    const e=state.active.queue[state.active.exerciseIndex];
+    const level=inferredCoachingLevel(e.id);
+    if(level==='silent'&&context==='set')return;
+    sayLive(conversationLine(),false);
+    lastConversationAt=Date.now();
+  },3000);
+};
+
+function restInstructionAt(seconds,total,e){
+  const a=state.active;
+  const prev=previousFor(e.id);
+  const load=a.weight||prev?.weight||e.defaultWeight||0;
+  if(seconds===total-3)return 'Recover. Breathe normally.';
+  if(seconds===Math.max(30,Math.floor(total/2)))return `${a.setNumber===e.sets?'Final set':'Next set'}: ${e.name}. ${load?`Use ${load} kilograms.`:'Use gentle resistance.'} Target ${e.target}.`;
+  if(seconds===20)return (EXERCISE_INTELLIGENCE[e.id]?.instructions||[e.technique])[0];
+  if(seconds===10)return 'Ten seconds. Get into position.';
+  if(seconds===5)return 'Five seconds. Hands ready.';
+  return '';
+}
+
+startRest=function(){
+  clearInterval(restTick);
+  restTick=setInterval(()=>{
+    if(!state.active||state.active.phase!=='rest'){clearInterval(restTick);return}
+    state.active.restSeconds--;
+    $('restTimer').textContent=format(state.active.restSeconds);
+    const e=state.active.queue[state.active.exerciseIndex],total=e.rest;
+    const line=restInstructionAt(state.active.restSeconds,total,e);
+    if(line)sayLive(line);
+    if(state.active.restSeconds<=0){
+      clearInterval(restTick);
+      state.active.phase='ready';
+      state.active.restSeconds=e.rest;
+      save();renderWorkout();
+      sayLive(`Rest complete. ${e.name}. ${e.setup||''} Press I'm Ready when set up.`);
+    }
+    save();
+  },1000);
+};
+
+</script>
 </body>
 </html>
